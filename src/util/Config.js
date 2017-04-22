@@ -9,7 +9,9 @@ Config = {
     ],
     animSprites: [
         //{key: "SpriteKey", imagePath: "path/to/image", jsonPath: "path/to/json"}
-        {key: "TestGuy", imagePath: "res/img/guy.png", jsonPath: "res/img/guyAnim.json"}
+        {key: "TestGuy", imagePath: "res/img/guy.png", jsonPath: "res/img/guyAnim.json"},
+        {key: "TestEnemy", imagePath: "res/img/zombie1.png", jsonPath: "res/img/zombieAnim.json"},
+        {key: "slash", imagePath: "res/img/slash.png", jsonPath: "res/img/slashAnim.json"},
     ],
     //tilemaps are assumed to be Tiled JSON.
     tileMaps: [
@@ -30,5 +32,6 @@ Config = {
     musicObjects: { },
     //will be populated by all the sfx objects after load
     sfxObjects: { },
-
+    //will be populated by all the plugins
+    plugins: { }
 }

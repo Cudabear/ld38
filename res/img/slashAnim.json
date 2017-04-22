@@ -1,0 +1,33 @@
+{"frames":[
+
+{
+	"filename": "slash01",
+	"frame": {"x": 0, "y": 0, "w":20, "h":10},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":20, "h":10},
+	"sourceSize": {"w":20, "h":10}
+},{
+	"filename": "slash02",
+	"frame": {"x": 20, "y": 0, "w":20, "h":10},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":20, "h":10},
+	"sourceSize": {"w":20, "h":10}
+},{
+	"filename": "slash03",
+	"frame": {"x": 40, "y": 0, "w":20, "h":10},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":20, "h":10},
+	"sourceSize": {"w":20, "h":10}
+},{
+	"filename": "slash04",
+	"frame": {"x": 60, "y": 0, "w":20, "h":10},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":20, "h":10},
+	"sourceSize": {"w":20, "h":10}
+}
+
+]}

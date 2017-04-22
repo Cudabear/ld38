@@ -15,6 +15,10 @@ BootupState.prototype = {
 
     create: function(){
         console.log('create bootup state');
+
+        //remove this line if not using lighting effects
+        //game.plugins.add(Phaser.Plugin.PhaserIlluminated);
+        Config.plugins.AStar = game.plugins.add(Phaser.Plugin.AStar);
     },
 
     update: function(){
