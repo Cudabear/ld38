@@ -27,9 +27,11 @@ MainState.prototype = {
         this.hero = new Hero();
 
         this.enemies = game.add.group();
-        for(var i = 0; i < 15; i++) {
-            this.enemies.add(new Enemy('melee', this.hero, this.map, this.mapCollision));
+        for(var i = 0; i < 1; i++) {
+            this.enemies.add(new Enemy('ranged', this.hero, this.map, this.mapCollision));
         }
+
+        this.enemies.add(new Enemy('melee', this.hero, this.map, this.mapCollision));
     },
 
     update: function() {
@@ -38,7 +40,9 @@ MainState.prototype = {
     },
 
     render: function() {
-
+        this.enemies.forEach(function(enemy){
+            game.debug.line(enemy.sightLine);
+        });
     },
 
     handleInput: function() {
@@ -53,17 +57,26 @@ MainState.prototype = {
                 game.physics.arcade.overlap(this.hero.slashEffect, enemy, this.hero.onSuccessfulSlash, null, this.hero);
             }
 
-            if(enemy.slashEffect.exists){
+            if(enemy.slashEffect && enemy.slashEffect.exists){
                 game.physics.arcade.overlap(enemy.slashEffect, this.hero, enemy.onSuccessfulSlash, null, enemy);
+            }
+
+            if(enemy.weapon){
+                game.physics.arcade.collide(enemy.weapon.bullets, this.hero, enemy.onSuccessfulArrow, null, enemy);
+                game.physics.arcade.collide(enemy.weapon.bullets, this.mapCollision, enemy.onFailedArrow, null, enemy);
             }
 
             //game.physics.arcade.collide(this.hero, enemy);
 
             this.enemies.forEach(function(newEnemy){
-                game.physics.arcade.collide(enemy, newEnemy)
+                game.physics.arcade.collide(enemy, newEnemy);
 
-                if(enemy.slashEffect.exists && enemy !== newEnemy){
+                if(enemy.slashEffect && enemy.slashEffect.exists && enemy !== newEnemy){
                     game.physics.arcade.overlap(enemy.slashEffect, newEnemy, enemy.onSuccessfulSlash, null, enemy);
+                }
+
+                if(enemy.weapon && enemy !== newEnemy){
+                    game.physics.arcade.collide(enemy.weapon.bullets, newEnemy, enemy.onSuccessfulArrow, null, enemy);
                 }
             }, this);
         }, this);
