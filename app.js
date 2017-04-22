@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", function(event){
 	//add the game states
 	game.state.add('SplashState', new SplashState());
 	game.state.add('LoadState', new LoadState());
-	game.state.add('MainState', new MainState());
 	game.state.add('BootupState', new BootupState());
+	game.state.add('TestLevel', new MainState('Test'));
 
     game.state.start('BootupState');
 });

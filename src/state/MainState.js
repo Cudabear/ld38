@@ -1,6 +1,10 @@
 MainState = function(){ }
 
 MainState.prototype = {
+    init: function(levelMapKey) {
+        this.levelMapKey = levelMapKey;
+    },
+
     preload: function(){
         console.log('preload main state');
     },
@@ -9,11 +13,14 @@ MainState.prototype = {
         console.log('create main state');
 
         //remove this line if not using lighting effects
-        game.plugins.add(Phaser.Plugin.PhaserIlluminated);
+        //game.plugins.add(Phaser.Plugin.PhaserIlluminated);
 
-        this.sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'pixel-guy');
-        this.sprite.anchor.setTo(0.5);
-        this.sprite.scale.setTo(5);
+        this.map = game.add.tilemap('TestMap');
+        this.map.addTilesetImage('TestSet');
+        this.mapCollision = this.map.createLayer('Collision');
+        this.mapCollision.alpha = 0;
+        this.mapBackground = this.map.createLayer('Background');
+        this.mapForeground = this.map.createLayer('Foreground');
     },
 
     update: function(){

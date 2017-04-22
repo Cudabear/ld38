@@ -9,6 +9,8 @@ BootupState.prototype = {
         game.scale.minWidth = Config.size.width;
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.stage.smoothed = false;
+
+        game.load.image('loadBar', 'res/img/wrapper/loadbar.png');
     },
 
     create: function(){

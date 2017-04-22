@@ -49,7 +49,7 @@ LoadState.prototype = {
         }, this);
 
         console.log('kicking off the game');
-        game.state.start('MainState');
+        game.state.start('TestLevel');
     },
 
     update: function(){
