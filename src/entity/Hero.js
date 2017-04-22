@@ -69,17 +69,7 @@ Hero.prototype.update = function() {
 }
 
 Hero.prototype.handlePhysics = function() {
-    if(this.slashEffect.exists){
-        if(this.facing === 'right') {
-            this.slashEffect.rotation = Math.PI/2;
-        }else if(this.facing === 'left') {
-            this.slashEffect.rotation = Math.PI*3/2;
-        }else if(this.facing === 'down') {
-            this.slashEffect.rotation = Math.PI;
-        }else if(this.facing === 'up') {
-            this.slashEffect.rotation = 0;
-        }
-    }
+
 }
 
 Hero.prototype.handleInput = function() {
@@ -126,7 +116,9 @@ Hero.prototype.handleInput = function() {
 }
 
 Hero.prototype.handleClick = function() {
-    this.slashEffect.doAttack();
+    if(!this.mainState.isDialog){
+        this.slashEffect.doAttack();
+    }
 }
 
 Hero.prototype.onSlashComplete = function() {

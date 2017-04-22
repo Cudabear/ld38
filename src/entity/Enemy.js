@@ -24,9 +24,7 @@ Enemy = function(type, x, y, target, enemies, map, collisionMap) {
         this.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
         this.weapon.bulletSpeed = this.constants.arrowFlySpeed;
         this.weapon.fireRate = 10;
-        this.weapon.trackSprite(this, 0, 0, false);
-
-        this.weaponTarget = new Phaser.Point();
+        this.weapon.trackSprite(this, 0, 0, false);  
     } else if(this.mobType === 'aoe'){
         Phaser.Sprite.call(this, game, x, y, 'TestEnemy');
 
@@ -39,11 +37,9 @@ Enemy = function(type, x, y, target, enemies, map, collisionMap) {
         this.bomb.anchor.setTo(0.5, 0.5);
         game.physics.arcade.enable(this.bomb);
         this.bomb.exists = false;
-
-        this.weaponTarget = new Phaser.Point();
     }
 
-
+    this.weaponTarget = new Phaser.Point();
     this.calculatePath();
     this.stunnedCounter = 0;
     this.attackWindupCounter = 0;
@@ -167,9 +163,7 @@ Enemy.prototype.attemptAttack = function(sightBlockingTiles) {
         this.attackWindupCounter = this.attackWindupTime;
         this.tint = 0x000000;
         
-        if(this.mobType === 'ranged' || this.mobType === 'aoe'){
-            this.weaponTarget.set(this.target.x, this.target.y);
-        }
+        this.weaponTarget.set(this.target.x, this.target.y);
 
         var dxHero = this.x - this.target.x;
         var dyHero = this.y - this.target.y;
