@@ -1,0 +1,75 @@
+{"frames":[
+
+{
+	"filename": "stand00",
+	"frame": {"x": 0, "y": 0, "w":24, "h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":24, "h":48},
+	"sourceSize": {"w":24, "h":48}
+},{
+	"filename": "stand01",
+	"frame": {"x": 24, "y": 0, "w":24, "h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":24, "h":48},
+	"sourceSize": {"w":24, "h":48}
+},{
+	"filename": "stand02",
+	"frame": {"x": 48, "y": 0, "w":24, "h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":24, "h":48},
+	"sourceSize": {"w":24, "h":48}
+},{
+	"filename": "stand03",
+	"frame": {"x": 72, "y": 0, "w":24, "h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":24, "h":48},
+	"sourceSize": {"w":24, "h":48}
+},{
+	"filename": "stand04",
+	"frame": {"x": 96, "y": 0, "w":24, "h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":24, "h":48},
+	"sourceSize": {"w":24, "h":48}
+},{
+	"filename": "stand05",
+	"frame": {"x": 120, "y": 0, "w":24, "h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":24, "h":48},
+	"sourceSize": {"w":24, "h":48}
+},{
+	"filename": "walk00",
+	"frame": {"x": 0, "y": 48, "w":24, "h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":24, "h":48},
+	"sourceSize": {"w":24, "h":48}
+},{
+	"filename": "walk01",
+	"frame": {"x": 24, "y": 48, "w":24, "h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":24, "h":48},
+	"sourceSize": {"w":24, "h":48}
+},{
+	"filename": "walk02",
+	"frame": {"x": 48, "y": 48, "w":24, "h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":24, "h":48},
+	"sourceSize": {"w":24, "h":48}
+},{
+	"filename": "walk03",
+	"frame": {"x": 72, "y": 48, "w":24, "h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":24, "h":48},
+	"sourceSize": {"w":24, "h":48}
+}
+
+]}
