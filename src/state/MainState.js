@@ -27,11 +27,9 @@ MainState.prototype = {
         this.hero = new Hero();
 
         this.enemies = game.add.group();
-        for(var i = 0; i < 1; i++) {
-            this.enemies.add(new Enemy('ranged', this.hero, this.map, this.mapCollision));
+        for(var i = 0; i < 15; i++) {
+            this.enemies.add(new Enemy('aoe', this.hero, this.enemies, this.map, this.mapCollision));
         }
-
-        this.enemies.add(new Enemy('melee', this.hero, this.map, this.mapCollision));
     },
 
     update: function() {

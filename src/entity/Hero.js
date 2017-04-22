@@ -12,6 +12,8 @@ Hero = function() {
     game.physics.arcade.enable(this);
     game.input.onDown.add(this.handleClick, this);
 
+    this.stunnedCounter = 0;
+
     this.healthBarEmpty = game.add.sprite(50, game.height - 50, 'healthbar', 1);
     this.healthBarFull = game.add.sprite(50, game.height - 50, 'healthbar', 0);
 }
@@ -25,7 +27,13 @@ Hero.prototype.constants.invulnTime = 50;
 Hero.prototype.health = Hero.prototype.constants.maxHealth;
 
 Hero.prototype.update = function() {
-    this.handleInput();
+    if(this.stunnedCounter === 0){
+        this.handleInput();
+    } else {
+        this.stunnedCounter -= 1;
+    }
+    
+
     this.handlePhysics();
 
     if(this.invulnTimeCounter > 0){
@@ -108,5 +116,12 @@ Hero.prototype.updateHealthbarCrop = function() {
         this.healthBarEmpty.exists = false;
         this.healthBarFull.exists = false;
     }
+}
+
+Hero.prototype.getExploaded = function(bomb, force){
+    this.getHit(bomb);
+    this.stunnedCounter = this.constants.invulnTime;
+    this.body.velocity.x = force*Math.cos(game.physics.arcade.angleBetween(bomb, this));
+    this.body.velocity.y = force*Math.sin(game.physics.arcade.angleBetween(bomb, this));
 }
 

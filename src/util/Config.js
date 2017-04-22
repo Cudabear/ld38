@@ -6,7 +6,8 @@ Config = {
         //{key: "SpriteKey", imagePath: "path/to/image"}
         {key: "phaser", imagePath: "res/img/wrapper/phaser-logo-small.png"},
         {key: "TestSet", imagePath: "res/img/tileset.png"},
-        {key: "arrow", imagePath: "res/img/arrow.png"}
+        {key: "arrow", imagePath: "res/img/arrow.png"},
+        {key: "bomb", imagePath: "res/img/bomb.png"}
     ],
     spritesheets: [
         //{key: "SpriteKey", imagePath: "path/to/image", frameWidth: frameWidth, frameHeight: frameHeight, frameMax: frameMax, margin: margin, spacing: spacing}
