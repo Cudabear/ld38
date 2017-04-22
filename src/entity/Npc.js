@@ -10,6 +10,7 @@ Npc = function(mainState, hero, x, y, id) {
 
     game.physics.arcade.enable(this);
     this.body.immovable = true;
+    game.input.onDown.add(this.handleClick, this);
 }
 
 Npc.prototype = Object.create(Phaser.Sprite.prototype);
@@ -19,9 +20,11 @@ Npc.prototype.update = function() {
 }
 
 Npc.prototype.handleInput = function() {
-    if(game.input.keyboard.downDuration(Phaser.Keyboard.A, 5)) {
-        if(game.physics.arcade.distanceBetween(this, this.hero) <= 50){
-            this.mainState.setDialog(this.dialog);
-        }
+
+}
+
+Npc.prototype.handleClick = function() {
+    if(game.physics.arcade.distanceBetween(this, this.hero) <= 50){
+        this.mainState.setDialog(this.dialog);
     }
 }

@@ -83,22 +83,18 @@ Hero.prototype.handlePhysics = function() {
 }
 
 Hero.prototype.handleInput = function() {
-    if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+    if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || game.input.keyboard.isDown(Phaser.Keyboard.A)) {
         this.body.velocity.x = -this.constants.speed;
-        this.facing = 'left';
-    } else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+    } else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || game.input.keyboard.isDown(Phaser.Keyboard.D)) {
         this.body.velocity.x = this.constants.speed;
-        this.facing = 'right';
     } else {
         this.body.velocity.x = 0;
     }
 
-    if(game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+    if(game.input.keyboard.isDown(Phaser.Keyboard.UP) || game.input.keyboard.isDown(Phaser.Keyboard.W)) {
         this.body.velocity.y = -this.constants.speed;
-        this.facing = 'up';
-    } else if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+    } else if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN) || game.input.keyboard.isDown(Phaser.Keyboard.S)) {
         this.body.velocity.y = this.constants.speed;
-        this.facing = 'down';
     } else {
         this.body.velocity.y = 0;
     }
@@ -107,6 +103,25 @@ Hero.prototype.handleInput = function() {
     if(this.body.velocity.y !== 0 && this.body.velocity.x !== 0) {
         this.body.velocity.y = this.constants.speed*Math.cos(45) * (this.body.velocity.y < 0 ? -1 : 1);
         this.body.velocity.x = this.constants.speed*Math.sin(45) * (this.body.velocity.x < 0 ? -1 : 1);
+    }
+
+    if(!this.slashEffect.exists){
+        var pointerDx = this.x - game.input.mousePointer.x;
+        var pointerDy = this.y - game.input.mousePointer.y;
+
+        if(Math.abs(pointerDx) > Math.abs(pointerDy)){
+            if(pointerDx < 0){
+                this.facing = 'right';
+            } else {
+                this.facing = 'left';
+            }
+        } else {
+            if(pointerDy < 0){
+                this.facing = 'down';
+            } else{
+                this.facing = 'up';
+            }
+        }
     }
 }
 
