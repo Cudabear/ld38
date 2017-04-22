@@ -1,7 +1,24 @@
-Hero = function(mainState) {
+Hero = function(mainState, spawnSide) {
     this.mainState = mainState;
+    this.spawnSide = spawnSide;
 
-    Phaser.Sprite.call(this, game, game.world.centerX, game.world.centerY, 'TestGuy');
+    var spawnX = 0;
+    var spawnY = 0;
+    if(spawnSide === 'west'){
+        spawnX = game.world.width - 96;
+        spawnY = game.world.centerY;
+    }else if(spawnSide === 'east'){
+        spawnX = 96;
+        spawnY = game.world.centerY;
+    }else if(spawnSide === 'north'){
+        spawnX = game.world.centerX;
+        spawnY = 96;
+    }else if(spawnSide === 'south'){
+        spawnX = game.world.centerX;
+        spawnY = game.world.height - 96;
+    }
+
+    Phaser.Sprite.call(this, game, spawnX, spawnY, 'TestGuy');
     game.add.existing(this);
     this.anchor.setTo(0.5);
 
@@ -13,6 +30,7 @@ Hero = function(mainState) {
 
     game.physics.arcade.enable(this);
     game.input.onDown.add(this.handleClick, this);
+    this.body.collideWorldBounds = true;
 
     this.stunnedCounter = 0;
 

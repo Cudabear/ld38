@@ -1,4 +1,7 @@
-MainState = function(){ }
+MainState = function(tilemapKey, spawnSide){ 
+    this.tilemapKey = tilemapKey;
+    this.spawnSide = spawnSide;
+}
 
 MainState.prototype = {
     init: function(levelMapKey) {
@@ -10,11 +13,11 @@ MainState.prototype = {
     },
 
     create: function() {
-        console.log('create main state');
+        console.log('create main state', this.tilemapKey, this.spawnSide);
 
         game.physics.startSystem(Phaser.Physics.Arcade);
 
-        this.map = game.add.tilemap('TestMap');
+        this.map = game.add.tilemap(this.tilemapKey);
         this.map.addTilesetImage('TestSet');
         this.mapCollision = this.map.createLayer('Collision');
         this.mapCollision.alpha = 0;
@@ -24,27 +27,30 @@ MainState.prototype = {
         this.mapBackground = this.map.createLayer('Background');
         this.mapForeground = this.map.createLayer('Foreground');
 
-        this.hero = new Hero(this);
+        this.hero = new Hero(this, this.spawnSide);
 
         this.enemies = game.add.group();
-        // for(var i = 0; i < 5; i++) {
-        //     this.enemies.add(new Enemy('aoe', this.hero, this.enemies, this.map, this.mapCollision));
-        // }
-        // for(var i = 0; i < 5; i++) {
-        //     this.enemies.add(new Enemy('ranged', this.hero, this.enemies, this.map, this.mapCollision));
-        // }
-        // for(var i = 0; i < 5; i++) {
-        //     this.enemies.add(new Enemy('melee', this.hero, this.enemies, this.map, this.mapCollision));
-        // }
+        this.map.objects.Enemies.forEach(function(enemyObject){
+            this.enemies.add(new Enemy(enemyObject.type, enemyObject.x, enemyObject.y, this.hero, this.enemies, this.map, this.mapCollision));
+        }, this);
 
         this.npcs = game.add.group();
-        this.npcs.add(new Npc(this, this.hero));
-        this.acceptingNewDialog = true;
+        this.map.objects.NPCs.forEach(function(npcObject){
+            this.npcs.add(new Npc(this, this.hero, npcObject.x, npcObject.y, npcObject.properties.id));
+            this.acceptingNewDialog = true;
+        }, this);
+
 
         this.dialogArray = [ ];
         this.currentDialogLine = '';
         this.dialogText = game.add.bitmapText(100, game.height - 100, 'font', '', 32);
         this.dialogText.maxWidth = game.width - 200;
+
+        this.doors = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
+        this.map.createFromObjects('Doors', 'door', 'arrow', 0, true, false, this.doors, Phaser.Sprite, false);
+        this.doors.forEach(function(door){
+            door.body.immovable = true;
+        }, this);
     },
 
     update: function() {
@@ -53,9 +59,11 @@ MainState.prototype = {
     },
 
     render: function() {
-        this.enemies.forEach(function(enemy){
-            game.debug.line(enemy.sightLine);
+        this.doors.forEach(function(door){
+            game.debug.spriteBounds(door);
         });
+
+        game.debug.spriteBounds(this.hero);
     },
 
     handleInput: function() {
@@ -74,6 +82,8 @@ MainState.prototype = {
         this.npcs.forEach(function(npc){
             game.physics.arcade.collide(this.hero, npc);
         }, this);
+
+        game.physics.arcade.collide(this.hero, this.doors, this.changeRoom, null, this);
 
         this.enemies.forEach(function(enemy){
             if(this.hero.slashEffect.exists){
@@ -116,7 +126,7 @@ MainState.prototype = {
 
     advanceDialog(dialog){
         this.currentDialogLine = this.dialogArray.shift();
-        console.log(this.dialogText.text);
+
         if(this.currentDialogLine) {
             this.dialogText.setText(this.currentDialogLine);
         } else {
@@ -124,6 +134,10 @@ MainState.prototype = {
             this.isDialog = false;
         }
     },
+    
+    changeRoom(hero, door){
+        game.state.start(door.toMap);
+    }
 
 
 }

@@ -22,7 +22,8 @@ Config = {
     //tilemaps are assumed to be Tiled JSON.
     tileMaps: [
         //{key: "MapKey", jsonPath: "path/to/json"}
-        {key: "TestMap", jsonPath: "res/lvl/test.json"}
+        {key: "TestMap", jsonPath: "res/lvl/test.json"},
+        {key: "TestMap2", jsonPath: "res/lvl/test2.json"}
     ],
     fonts: [
         //{key: "FontKey", imagePath: "path/to/image", xmlPath: "path/to/XML"}

@@ -1,10 +1,12 @@
-Npc = function(mainState, hero) {
+Npc = function(mainState, hero, x, y, id) {
     this.hero = hero;
     this.mainState = mainState;
 
-    Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'TestEnemy');
+    Phaser.Sprite.call(this, game, x, y, 'TestEnemy');
     game.add.existing(this);
     this.anchor.setTo(0.5);
+
+    this.dialog = NpcDialog[id].dialog;
 
     game.physics.arcade.enable(this);
     this.body.immovable = true;
@@ -19,7 +21,7 @@ Npc.prototype.update = function() {
 Npc.prototype.handleInput = function() {
     if(game.input.keyboard.downDuration(Phaser.Keyboard.A, 5)) {
         if(game.physics.arcade.distanceBetween(this, this.hero) <= 50){
-            this.mainState.setDialog(['hi', 'my name is error and I have something really long and kind of annoying to tell you']);
+            this.mainState.setDialog(this.dialog);
         }
     }
 }

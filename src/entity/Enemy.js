@@ -1,4 +1,4 @@
-Enemy = function(type, target, enemies, map, collisionMap) {
+Enemy = function(type, x, y, target, enemies, map, collisionMap) {
     this.target = target;
     this.map = map;
     this.collisionMap = collisionMap;
@@ -6,14 +6,14 @@ Enemy = function(type, target, enemies, map, collisionMap) {
     this.mobType = type;
     this.enemies = enemies;
     if(this.mobType === 'melee') {
-        Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'TestEnemy');
+        Phaser.Sprite.call(this, game, x, y, 'TestEnemy');
         this.attackDistance = this.constants.attackDistanceMelee;
         this.attackWindupTime = this.constants.attackWindupTimeMelee;
         this.attackCooldownTime = this.constants.cooldownTimeMelee;
 
         this.slashEffect = new SlashEffect(this);
     } else if(this.mobType === 'ranged'){
-        Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'TestEnemy');
+        Phaser.Sprite.call(this, game, x, y, 'TestEnemy');
 
         this.attackDistance = this.constants.attackDistanceRanged;
         this.attackWindupTime = this.constants.attackWindupTimeRanged;
@@ -28,7 +28,7 @@ Enemy = function(type, target, enemies, map, collisionMap) {
 
         this.weaponTarget = new Phaser.Point();
     } else if(this.mobType === 'aoe'){
-        Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'TestEnemy');
+        Phaser.Sprite.call(this, game, x, y, 'TestEnemy');
 
         this.attackDistance = this.constants.attackDistanceAOE;
         this.attackWindupTime = this.constants.attackWindupTimeAOE;
