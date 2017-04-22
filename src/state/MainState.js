@@ -24,12 +24,27 @@ MainState.prototype = {
         this.mapBackground = this.map.createLayer('Background');
         this.mapForeground = this.map.createLayer('Foreground');
 
-        this.hero = new Hero();
+        this.hero = new Hero(this);
 
         this.enemies = game.add.group();
-        for(var i = 0; i < 15; i++) {
-            this.enemies.add(new Enemy('aoe', this.hero, this.enemies, this.map, this.mapCollision));
-        }
+        // for(var i = 0; i < 5; i++) {
+        //     this.enemies.add(new Enemy('aoe', this.hero, this.enemies, this.map, this.mapCollision));
+        // }
+        // for(var i = 0; i < 5; i++) {
+        //     this.enemies.add(new Enemy('ranged', this.hero, this.enemies, this.map, this.mapCollision));
+        // }
+        // for(var i = 0; i < 5; i++) {
+        //     this.enemies.add(new Enemy('melee', this.hero, this.enemies, this.map, this.mapCollision));
+        // }
+
+        this.npcs = game.add.group();
+        this.npcs.add(new Npc(this, this.hero));
+        this.acceptingNewDialog = true;
+
+        this.dialogArray = [ ];
+        this.currentDialogLine = '';
+        this.dialogText = game.add.bitmapText(100, game.height - 100, 'font', '', 32);
+        this.dialogText.maxWidth = game.width - 200;
     },
 
     update: function() {
@@ -44,11 +59,21 @@ MainState.prototype = {
     },
 
     handleInput: function() {
-
+        if(game.input.keyboard.downDuration(Phaser.Keyboard.A, 5)) {
+            if(this.isDialog){
+                this.advanceDialog();
+            } else {
+                this.acceptingNewDialog = true;
+            }
+        }
     },
 
     handlePhysics: function() {
         game.physics.arcade.collide(this.hero, this.mapCollision);
+
+        this.npcs.forEach(function(npc){
+            game.physics.arcade.collide(this.hero, npc);
+        }, this);
 
         this.enemies.forEach(function(enemy){
             if(this.hero.slashEffect.exists){
@@ -78,6 +103,26 @@ MainState.prototype = {
                 }
             }, this);
         }, this);
+    },
+
+    setDialog(dialog){
+        if(this.acceptingNewDialog) {
+            this.acceptingNewDialog = false;
+            this.isDialog = true;
+            this.dialogArray = dialog;
+            this.advanceDialog();
+        }
+    },
+
+    advanceDialog(dialog){
+        this.currentDialogLine = this.dialogArray.shift();
+        console.log(this.dialogText.text);
+        if(this.currentDialogLine) {
+            this.dialogText.setText(this.currentDialogLine);
+        } else {
+            this.dialogText.setText('');
+            this.isDialog = false;
+        }
     },
 
 

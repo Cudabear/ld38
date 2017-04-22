@@ -26,6 +26,7 @@ Config = {
     ],
     fonts: [
         //{key: "FontKey", imagePath: "path/to/image", xmlPath: "path/to/XML"}
+        {key: "font", imagePath: "res/img/font.png", xmlPath: "res/img/font.xml"}
     ],
     sfx: [
         //{key: "SfxKey", filePath: "path/to/audiofile"}

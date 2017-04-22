@@ -1,4 +1,6 @@
-Hero = function() {
+Hero = function(mainState) {
+    this.mainState = mainState;
+
     Phaser.Sprite.call(this, game, game.world.centerX, game.world.centerY, 'TestGuy');
     game.add.existing(this);
     this.anchor.setTo(0.5);
@@ -28,7 +30,11 @@ Hero.prototype.health = Hero.prototype.constants.maxHealth;
 
 Hero.prototype.update = function() {
     if(this.stunnedCounter === 0){
-        this.handleInput();
+        if(!this.mainState.isDialog){
+            this.handleInput();
+        }else {
+            this.body.velocity.setTo(0);
+        }
     } else {
         this.stunnedCounter -= 1;
     }
