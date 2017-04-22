@@ -59,11 +59,7 @@ MainState.prototype = {
     },
 
     render: function() {
-        this.doors.forEach(function(door){
-            game.debug.spriteBounds(door);
-        });
 
-        game.debug.spriteBounds(this.hero);
     },
 
     handleInput: function() {
