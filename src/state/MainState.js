@@ -23,7 +23,6 @@ MainState.prototype = {
         Config.plugins.AStar.setAStarMap(this.map, 'Collision', 'TestSet');
         this.mapBackground = this.map.createLayer('Background');
         this.mapForeground = this.map.createLayer('Foreground');
-        console.log(this.map.layers[2])
 
         this.hero = new Hero();
 
@@ -58,12 +57,12 @@ MainState.prototype = {
                 game.physics.arcade.overlap(enemy.slashEffect, this.hero, enemy.onSuccessfulSlash, null, enemy);
             }
 
-            game.physics.arcade.collide(this.hero, enemy);
+            //game.physics.arcade.collide(this.hero, enemy);
 
             this.enemies.forEach(function(newEnemy){
                 game.physics.arcade.collide(enemy, newEnemy)
 
-                if(enemy.slashEffect.exists){
+                if(enemy.slashEffect.exists && enemy !== newEnemy){
                     game.physics.arcade.overlap(enemy.slashEffect, newEnemy, enemy.onSuccessfulSlash, null, enemy);
                 }
             }, this);

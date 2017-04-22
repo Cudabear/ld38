@@ -15,13 +15,7 @@ Enemy = function(type, target, map, collisionMap) {
         this.stunnedCounter = 0;
         this.attackWindupCounter = 0;
 
-        this.slashEffect = game.add.sprite(this.x, this.y, 'slash');
-        this.slashEffect.anchor.setTo(0.5);
-        game.physics.arcade.enable(this.slashEffect);
-        this.slashEffect.body.immovable = true;
-        this.slashAnim = this.slashEffect.animations.add('slash', null, 10);
-        this.slashAnim.onComplete.add(this.onSlashComplete, this);
-        this.slashEffect.exists = false;
+        this.slashEffect = new SlashEffect(this);
 
 
         this.calculatePath();
@@ -59,21 +53,6 @@ Enemy.prototype.update = function() {
 
         if(this.stunnedCounter === 0){
             this.calculatePath();
-        }
-    }
-
-    if(this.slashEffect.exists){
-        this.slashEffect.x = this.x + (this.facing === 'left' ? -32 : 0) + (this.facing === 'right' ? 32 : 0);
-        this.slashEffect.y = this.y + (this.facing === 'up' ? -32 : 0) + (this.facing === 'down' ? 32 : 0);
-
-        if(this.facing === 'right') {
-            this.slashEffect.rotation = Math.PI/2;
-        }else if(this.facing === 'left') {
-            this.slashEffect.rotation = Math.PI*3/2;
-        }else if(this.facing === 'down') {
-            this.slashEffect.rotation = Math.PI;
-        }else if(this.facing === 'up') {
-            this.slashEffect.rotation = 0;
         }
     }
 
@@ -145,8 +124,10 @@ Enemy.prototype.attemptAttack = function(){
 }
 
 Enemy.prototype.doAttack = function() {
-    this.slashEffect.exists = true;
-    this.slashEffect.animations.play('slash');
+    this.slashEffect.doAttack();
+}
+
+Enemy.prototype.onAttackComplete = function() {
     this.tint = 0xFFFFFF;
 }
 

@@ -3,13 +3,7 @@ Hero = function() {
     game.add.existing(this);
     this.anchor.setTo(0.5);
 
-    this.slashEffect = game.add.sprite(this.x, this.y, 'slash');
-    this.slashEffect.anchor.setTo(0.5);
-    game.physics.arcade.enable(this.slashEffect);
-    this.slashEffect.body.immovable = true;
-    this.slashAnim = this.slashEffect.animations.add('slash', null, 10);
-    this.slashAnim.onComplete.add(this.onSlashComplete, this);
-    this.slashEffect.exists = false;
+    this.slashEffect = new SlashEffect(this);
 
     this.facing = 'north';
     this.invulnTimeCounter = 0;
@@ -44,9 +38,6 @@ Hero.prototype.update = function() {
 
 Hero.prototype.handlePhysics = function() {
     if(this.slashEffect.exists){
-        this.slashEffect.x = this.x + (this.facing === 'left' ? -32 : 0) + (this.facing === 'right' ? 32 : 0);
-        this.slashEffect.y = this.y + (this.facing === 'up' ? -32 : 0) + (this.facing === 'down' ? 32 : 0);
-
         if(this.facing === 'right') {
             this.slashEffect.rotation = Math.PI/2;
         }else if(this.facing === 'left') {
@@ -88,8 +79,7 @@ Hero.prototype.handleInput = function() {
 }
 
 Hero.prototype.handleClick = function() {
-    this.slashEffect.exists = true;
-    this.slashEffect.animations.play('slash');
+    this.slashEffect.doAttack();
 }
 
 Hero.prototype.onSlashComplete = function() {
