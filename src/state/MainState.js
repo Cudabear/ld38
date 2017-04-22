@@ -19,6 +19,12 @@ MainState.prototype = {
 
         game.input.onDown.add(this.handleClick, this);
 
+        this.acceptingNewDialog = true;
+        this.dialogArray = [ ];
+        this.currentDialogLine = '';
+        this.dialogText = game.add.bitmapText(100, game.height - 100, 'font', '', 32);
+        this.dialogText.maxWidth = game.width - 200;
+
         this.map = game.add.tilemap(this.tilemapKey);
         this.map.addTilesetImage('TileSet');
         this.mapCollision = this.map.createLayer('Collision');
@@ -33,7 +39,8 @@ MainState.prototype = {
 
         this.enemies = game.add.group();
         this.map.objects.Enemies.forEach(function(enemyObject){
-            this.enemies.add(new Enemy(enemyObject.type, enemyObject.x, enemyObject.y, this.hero, this.enemies, this.map, this.mapCollision));
+            console.log(enemyObject.properties);
+            this.enemies.add(new Enemy(enemyObject.type, enemyObject.x, enemyObject.y, this, this.hero, this.enemies, this.map, this.mapCollision, enemyObject.properties ? enemyObject.properties.dialog : false));
         }, this);
 
         this.npcs = game.add.group();
@@ -43,10 +50,6 @@ MainState.prototype = {
         }, this);
 
 
-        this.dialogArray = [ ];
-        this.currentDialogLine = '';
-        this.dialogText = game.add.bitmapText(100, game.height - 100, 'font', '', 32);
-        this.dialogText.maxWidth = game.width - 200;
 
         this.doors = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
         this.map.createFromObjects('Doors', 'door', 'arrow', 0, true, false, this.doors, Phaser.Sprite, false);

@@ -1,10 +1,12 @@
-Enemy = function(type, x, y, target, enemies, map, collisionMap) {
+Enemy = function(type, x, y, mainState, target, enemies, map, collisionMap, dialog) {
     this.target = target;
     this.map = map;
     this.collisionMap = collisionMap;
     this.path = [ ];
     this.mobType = type;
     this.enemies = enemies;
+    this.dialog = dialog;
+    this.mainState = mainState;
     if(this.mobType === 'melee') {
         Phaser.Sprite.call(this, game, x, y, 'TestEnemy');
         this.attackDistance = this.constants.attackDistanceMelee;
@@ -39,6 +41,12 @@ Enemy = function(type, x, y, target, enemies, map, collisionMap) {
         this.bomb.exists = false;
     }
 
+    if(this.dialog){
+        this.speechbubble = game.add.sprite(x+32, y-32, 'speechbubble');
+        this.speechbubble.anchor.setTo(0.5);
+        this.mainState.setDialog(NpcDialog[this.dialog].dialog);
+    }
+
     this.weaponTarget = new Phaser.Point();
     this.calculatePath();
     this.stunnedCounter = 0;
@@ -49,12 +57,8 @@ Enemy = function(type, x, y, target, enemies, map, collisionMap) {
     this.anchor.setTo(0.5);
 
     game.physics.arcade.enable(this);
-    this.body.acceleration.setTo(this.constants.acceleration);
 
     this.facing = 'north';
-
-    this.healthBarEmpty = game.add.sprite(this.x, this.y, 'healthbar', 1);
-    this.healthBarFull = game.add.sprite(this.x, this.y, 'healthbar', 0);
 }
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
@@ -82,50 +86,51 @@ Enemy.prototype.maxHealth = 10;
 Enemy.prototype.health = Enemy.prototype.maxHealth;
 
 Enemy.prototype.update = function() {
-    if(this.stunnedCounter === 0){
-
-        var sightBlockingTiles = false;
-        if(this.mobType === 'ranged'){
-            this.sightLine.start.set(this.x, this.y);
-            this.sightLine.end.set(this.target.x, this.target.y);
-            sightBlockingTiles = this.collisionMap.getRayCastTiles(this.sightLine, 4, true);
-        }
-
-        if((sightBlockingTiles && sightBlockingTiles.length > 0 && this.attackWindupCounter === 0) || (this.attackWindupCounter === 0 && game.physics.arcade.distanceBetween(this, this.target) > this.attackDistance)){
-            this.traversePath();
-        } else {
-            this.attemptAttack(sightBlockingTiles);
-        } 
-
-        if(this.cooldownCounter > 0){
-            this.cooldownCounter--;
-        }
-    } else if(this.stunnedCounter > 0){
-        this.stunnedCounter--;
-        
-        game.physics.arcade.collide(this, this.collisionMap);
-
+    if(!this.mainState.isDialog){
         if(this.stunnedCounter === 0){
-            this.calculatePath();
+            var sightBlockingTiles = false;
+            if(this.mobType === 'ranged'){
+                this.sightLine.start.set(this.x, this.y);
+                this.sightLine.end.set(this.target.x, this.target.y);
+                sightBlockingTiles = this.collisionMap.getRayCastTiles(this.sightLine, 4, true);
+            }
+
+            if((sightBlockingTiles && sightBlockingTiles.length > 0 && this.attackWindupCounter === 0) || (this.attackWindupCounter === 0 && game.physics.arcade.distanceBetween(this, this.target) > this.attackDistance)){
+                this.traversePath();
+                this.tint = 0xFFFFFF;
+            } else {
+                this.attemptAttack(sightBlockingTiles);
+            } 
+
+            if(this.cooldownCounter > 0){
+                this.cooldownCounter--;
+            }
+        } else if(this.stunnedCounter > 0){
+            this.stunnedCounter--;
+            
+            game.physics.arcade.collide(this, this.collisionMap);
+
+            if(this.stunnedCounter === 0){
+                this.calculatePath();
+            }
+        }
+
+        if(this.bomb && this.bomb.exists){
+            if(game.physics.arcade.distanceBetween(this.bomb, this.weaponTarget) < 5){
+                this.bomb.body.velocity.setTo(0);
+            }
+
+            if(this.bombExplosionCounter === 0){
+                this.exploadBomb();
+            } else {
+                this.bombExplosionCounter--;
+            }
+        }
+
+        if(this.speechbubble){
+            this.speechbubble.exists = false;
         }
     }
-
-    if(this.bomb && this.bomb.exists){
-        if(game.physics.arcade.distanceBetween(this.bomb, this.weaponTarget) < 5){
-            this.bomb.body.velocity.setTo(0);
-        }
-
-        if(this.bombExplosionCounter === 0){
-            this.exploadBomb();
-        } else {
-            this.bombExplosionCounter--;
-        }
-    }
-
-    this.healthBarFull.x = this.x - this.width/2 + 2;
-    this.healthBarFull.y = this.y + this.height/2 + 3;
-    this.healthBarEmpty.x = this.x - this.width/2 + 2;
-    this.healthBarEmpty.y = this.y + this.height/2 + 3;
 }
 
 Enemy.prototype.calculatePath = function() {
@@ -153,7 +158,8 @@ Enemy.prototype.getHit = function(attacker, knockback) {
     this.body.velocity.x = (knockback || this.constants.knockbackForce)*Math.cos(game.physics.arcade.angleBetween(attacker, this));
     this.body.velocity.y = (knockback || this.constants.knockbackForce)*Math.sin(game.physics.arcade.angleBetween(attacker, this));
     this.damage(1);
-    this.updateHealthbarCrop();
+    this.attackWindupCounter = 0;
+    this.tint = 0xFF0000;
     Config.sfxObjects.hit.play();
 }
 
@@ -210,16 +216,6 @@ Enemy.prototype.doAttack = function() {
 
 Enemy.prototype.onAttackComplete = function() {
     this.tint = 0xFFFFFF;
-}
-
-Enemy.prototype.updateHealthbarCrop = function() {
-    var width = this.healthBarEmpty.width*this.health/this.maxHealth;
-    this.healthBarFull.crop({x: 0, y: 0, width: width, height: this.healthBarEmpty.height, right: width, bottom: this.healthBarEmpty.height});
-
-    if(this.health === 0){
-        this.healthBarEmpty.exists = false;
-        this.healthBarFull.exists = false;
-    }
 }
 
 Enemy.prototype.onSuccessfulSlash = function(me, enemy){

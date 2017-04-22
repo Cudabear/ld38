@@ -7,7 +7,8 @@ Config = {
         {key: "phaser", imagePath: "res/img/wrapper/phaser-logo-small.png"},
         {key: "TileSet", imagePath: "res/img/sprites/tile-set.png"},
         {key: "arrow", imagePath: "res/img/sprites/arrow.png"},
-        {key: "bomb", imagePath: "res/img/sprites/bomb.png"}
+        {key: "bomb", imagePath: "res/img/sprites/bomb.png"},
+        {key: "speechbubble", imagePath: "res/img/sprites/speechbubble.png"},
     ],
     spritesheets: [
         //{key: "SpriteKey", imagePath: "path/to/image", frameWidth: frameWidth, frameHeight: frameHeight, frameMax: frameMax, margin: margin, spacing: spacing}

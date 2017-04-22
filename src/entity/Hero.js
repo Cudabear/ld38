@@ -4,18 +4,24 @@ Hero = function(mainState, spawnSide) {
 
     var spawnX = 0;
     var spawnY = 0;
-    if(spawnSide === 'west'){
-        spawnX = game.world.width - 96;
-        spawnY = game.world.centerY;
-    }else if(spawnSide === 'east'){
-        spawnX = 96;
-        spawnY = game.world.centerY;
-    }else if(spawnSide === 'north'){
-        spawnX = game.world.centerX;
-        spawnY = 96;
-    }else if(spawnSide === 'south'){
-        spawnX = game.world.centerX;
-        spawnY = game.world.height - 96;
+
+    if(spawnSide.x && spawnSide.y){
+        spawnX = spawnSide.x;
+        spawnY = spawnSide.y;
+    }else {
+        if(spawnSide === 'west'){
+            spawnX = game.world.width - 96;
+            spawnY = game.world.centerY;
+        }else if(spawnSide === 'east'){
+            spawnX = 96;
+            spawnY = game.world.centerY;
+        }else if(spawnSide === 'north'){
+            spawnX = game.world.centerX;
+            spawnY = 96;
+        }else if(spawnSide === 'south'){
+            spawnX = game.world.centerX;
+            spawnY = game.world.height - 96;
+        }
     }
 
     Phaser.Sprite.call(this, game, spawnX, spawnY, 'TestGuy');
