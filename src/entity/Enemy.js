@@ -86,7 +86,7 @@ Enemy.prototype.maxHealth = 10;
 Enemy.prototype.health = Enemy.prototype.maxHealth;
 
 Enemy.prototype.update = function() {
-    if(!this.mainState.isDialog){
+    if(!this.mainState.isDialog && this.alive){
         if(this.stunnedCounter === 0){
             var sightBlockingTiles = false;
             if(this.mobType === 'ranged'){
