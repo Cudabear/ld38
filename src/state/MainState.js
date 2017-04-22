@@ -49,12 +49,25 @@ MainState.prototype = {
     handlePhysics: function() {
         game.physics.arcade.collide(this.hero, this.mapCollision);
 
-        if(this.hero.slashEffect.exists) {
-            this.enemies.forEach(function(enemy){
-                game.physics.arcade.overlap(this.hero.slashEffect, enemy, this.hero.onSuccessfulSlash, null, this.hero)
+        this.enemies.forEach(function(enemy){
+            if(this.hero.slashEffect.exists){
+                game.physics.arcade.overlap(this.hero.slashEffect, enemy, this.hero.onSuccessfulSlash, null, this.hero);
+            }
+
+            if(enemy.slashEffect.exists){
+                game.physics.arcade.overlap(enemy.slashEffect, this.hero, enemy.onSuccessfulSlash, null, enemy);
+            }
+
+            game.physics.arcade.collide(this.hero, enemy);
+
+            this.enemies.forEach(function(newEnemy){
+                game.physics.arcade.collide(enemy, newEnemy)
+
+                if(enemy.slashEffect.exists){
+                    game.physics.arcade.overlap(enemy.slashEffect, newEnemy, enemy.onSuccessfulSlash, null, enemy);
+                }
             }, this);
-        }
-        //game.physics.arcade.collide(this.hero, this.enemies);
+        }, this);
     },
 
 

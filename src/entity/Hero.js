@@ -12,20 +12,34 @@ Hero = function() {
     this.slashEffect.exists = false;
 
     this.facing = 'north';
+    this.invulnTimeCounter = 0;
 
 
     game.physics.arcade.enable(this);
     game.input.onDown.add(this.handleClick, this);
+
+    this.healthBarEmpty = game.add.sprite(50, game.height - 50, 'healthbar', 1);
+    this.healthBarFull = game.add.sprite(50, game.height - 50, 'healthbar', 0);
 }
 
 Hero.prototype = Object.create(Phaser.Sprite.prototype);
 Hero.prototype.constructor = Hero;
 Hero.prototype.constants = { };
 Hero.prototype.constants.speed = 150;
+Hero.prototype.constants.maxHealth = 100;
+Hero.prototype.constants.invulnTime = 50;
+Hero.prototype.health = Hero.prototype.constants.maxHealth;
 
 Hero.prototype.update = function() {
     this.handleInput();
     this.handlePhysics();
+
+    if(this.invulnTimeCounter > 0){
+        this.invulnTimeCounter--;
+        this.tint = 0xFF0000;
+    }else{
+        this.tint = 0xFFFFFF;
+    }
 }
 
 Hero.prototype.handlePhysics = function() {
@@ -85,6 +99,24 @@ Hero.prototype.onSlashComplete = function() {
 Hero.prototype.onSuccessfulSlash = function(me, enemy){
     if(!enemy.stunnedCounter) {
         enemy.getHit(this.slashEffect);
+    }
+}
+
+Hero.prototype.getHit = function(attacker) {
+    if(this.invulnTimeCounter === 0){
+        this.damage(1);
+        this.updateHealthbarCrop();
+        this.invulnTimeCounter = this.constants.invulnTime;
+    }
+}
+
+Hero.prototype.updateHealthbarCrop = function() {
+    var width = this.healthBarEmpty.width*this.health/this.maxHealth;
+    this.healthBarFull.crop({x: 0, y: 0, width: width, height: this.healthBarEmpty.height, right: width, bottom: this.healthBarEmpty.height});
+
+    if(this.health === 0){
+        this.healthBarEmpty.exists = false;
+        this.healthBarFull.exists = false;
     }
 }
 

@@ -7,6 +7,10 @@ Config = {
         {key: "phaser", imagePath: "res/img/wrapper/phaser-logo-small.png"},
         {key: "TestSet", imagePath: "res/img/tileset.png"}
     ],
+    spritesheets: [
+        //{key: "SpriteKey", imagePath: "path/to/image", frameWidth: frameWidth, frameHeight: frameHeight, frameMax: frameMax, margin: margin, spacing: spacing}
+        {key: "healthbar", imagePath: "res/img/healthbar.png", frameWidth: 28, frameHeight: 8}
+    ],
     animSprites: [
         //{key: "SpriteKey", imagePath: "path/to/image", jsonPath: "path/to/json"}
         {key: "TestGuy", imagePath: "res/img/guy.png", jsonPath: "res/img/guyAnim.json"},
