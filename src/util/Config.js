@@ -4,21 +4,21 @@ Config = {
     size: {width: 1024, height: 768},
     sprites: [
         //{key: "SpriteKey", imagePath: "path/to/image"}
-        {key: "phaser", imagePath: "res/img/wrapper/phaser-logo-small.png"},
-        {key: "TestSet", imagePath: "res/img/tileset.png"},
-        {key: "arrow", imagePath: "res/img/arrow.png"},
-        {key: "bomb", imagePath: "res/img/bomb.png"}
+        {key: "phaser", imagePath: "res/img/sprites/wrapper/phaser-logo-small.png"},
+        {key: "TestSet", imagePath: "res/img/sprites/tileset.png"},
+        {key: "arrow", imagePath: "res/img/sprites/arrow.png"},
+        {key: "bomb", imagePath: "res/img/sprites/bomb.png"}
     ],
     spritesheets: [
         //{key: "SpriteKey", imagePath: "path/to/image", frameWidth: frameWidth, frameHeight: frameHeight, frameMax: frameMax, margin: margin, spacing: spacing}
-        {key: "healthbar", imagePath: "res/img/healthbar.png", frameWidth: 28, frameHeight: 8}
+        {key: "healthbar", imagePath: "res/img/sprites/healthbar.png", frameWidth: 28, frameHeight: 8}
     ],
     animSprites: [
         //{key: "SpriteKey", imagePath: "path/to/image", jsonPath: "path/to/json"}
-        {key: "TestGuy", imagePath: "res/img/guy.png", jsonPath: "res/img/guyAnim.json"},
-        {key: "TestEnemy", imagePath: "res/img/zombie1.png", jsonPath: "res/img/zombieAnim.json"},
-        {key: "slash", imagePath: "res/img/slash.png", jsonPath: "res/img/slashAnim.json"},
-        {key: "pointerArrow", imagePath: "res/img/pointerArrow.png", jsonPath: "res/img/pointerArrow.json"},
+        {key: "TestGuy", imagePath: "res/img/sprites/guy.png", jsonPath: "res/img/sprites/guyAnim.json"},
+        {key: "TestEnemy", imagePath: "res/img/sprites/zombie1.png", jsonPath: "res/img/sprites/zombieAnim.json"},
+        {key: "slash", imagePath: "res/img/sprites/slash.png", jsonPath: "res/img/sprites/slashAnim.json"},
+        {key: "pointerArrow", imagePath: "res/img/sprites/pointerArrow.png", jsonPath: "res/img/sprites/pointerArrow.json"},
     ],
     //tilemaps are assumed to be Tiled JSON.
     tileMaps: [
@@ -28,7 +28,7 @@ Config = {
     ],
     fonts: [
         //{key: "FontKey", imagePath: "path/to/image", xmlPath: "path/to/XML"}
-        {key: "font", imagePath: "res/img/font.png", xmlPath: "res/img/font.xml"}
+        {key: "font", imagePath: "res/img/font/font.png", xmlPath: "res/img/font/font.xml"}
     ],
     sfx: [
         //{key: "SfxKey", filePath: "path/to/audiofile"}
