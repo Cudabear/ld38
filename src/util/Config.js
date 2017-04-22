@@ -18,6 +18,7 @@ Config = {
         {key: "TestGuy", imagePath: "res/img/guy.png", jsonPath: "res/img/guyAnim.json"},
         {key: "TestEnemy", imagePath: "res/img/zombie1.png", jsonPath: "res/img/zombieAnim.json"},
         {key: "slash", imagePath: "res/img/slash.png", jsonPath: "res/img/slashAnim.json"},
+        {key: "pointerArrow", imagePath: "res/img/pointerArrow.png", jsonPath: "res/img/pointerArrow.json"},
     ],
     //tilemaps are assumed to be Tiled JSON.
     tileMaps: [
@@ -31,6 +32,8 @@ Config = {
     ],
     sfx: [
         //{key: "SfxKey", filePath: "path/to/audiofile"}
+        {key: "hit", filePath: "res/sfx/hit.wav"},
+        {key: "select", filePath: "res/sfx/select.wav"}
     ],
     //music loops by default
     music: [

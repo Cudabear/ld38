@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	game.state.add('SplashState', new SplashState());
 	game.state.add('LoadState', new LoadState());
 	game.state.add('BootupState', new BootupState());
+	game.state.add('SelectHero', new SelectHeroState());
 	game.state.add('initial', new MainState('TestMap', 'south'));
 	game.state.add('test', new MainState('TestMap', 'north'));
 	game.state.add('test2', new MainState('TestMap2', 'south'));
