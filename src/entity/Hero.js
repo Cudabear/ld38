@@ -136,6 +136,7 @@ Hero.prototype.getHit = function(attacker) {
         this.damage(1);
         this.updateHealthbarCrop();
         this.invulnTimeCounter = this.constants.invulnTime;
+        Config.sfxObjects.hit.play();
     }
 }
 

@@ -4,8 +4,8 @@ Config = {
     size: {width: 1024, height: 768},
     sprites: [
         //{key: "SpriteKey", imagePath: "path/to/image"}
-        {key: "phaser", imagePath: "res/img/sprites/wrapper/phaser-logo-small.png"},
-        {key: "TestSet", imagePath: "res/img/sprites/tileset.png"},
+        {key: "phaser", imagePath: "res/img/wrapper/phaser-logo-small.png"},
+        {key: "TileSet", imagePath: "res/img/sprites/tile-set.png"},
         {key: "arrow", imagePath: "res/img/sprites/arrow.png"},
         {key: "bomb", imagePath: "res/img/sprites/bomb.png"}
     ],
@@ -23,8 +23,8 @@ Config = {
     //tilemaps are assumed to be Tiled JSON.
     tileMaps: [
         //{key: "MapKey", jsonPath: "path/to/json"}
-        {key: "TestMap", jsonPath: "res/lvl/test.json"},
-        {key: "TestMap2", jsonPath: "res/lvl/test2.json"}
+        {key: "Town", jsonPath: "res/lvl/town.json"},
+        {key: "Room1", jsonPath: "res/lvl/room1.json"}
     ],
     fonts: [
         //{key: "FontKey", imagePath: "path/to/image", xmlPath: "path/to/XML"}

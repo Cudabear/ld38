@@ -154,6 +154,7 @@ Enemy.prototype.getHit = function(attacker, knockback) {
     this.body.velocity.y = (knockback || this.constants.knockbackForce)*Math.sin(game.physics.arcade.angleBetween(attacker, this));
     this.damage(1);
     this.updateHealthbarCrop();
+    Config.sfxObjects.hit.play();
 }
 
 Enemy.prototype.attemptAttack = function(sightBlockingTiles) {

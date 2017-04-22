@@ -20,12 +20,12 @@ MainState.prototype = {
         game.input.onDown.add(this.handleClick, this);
 
         this.map = game.add.tilemap(this.tilemapKey);
-        this.map.addTilesetImage('TestSet');
+        this.map.addTilesetImage('TileSet');
         this.mapCollision = this.map.createLayer('Collision');
         this.mapCollision.alpha = 0;
         this.mapCollision.resizeWorld();
-        this.map.setCollision(399, true, this.mapCollision);
-        Config.plugins.AStar.setAStarMap(this.map, 'Collision', 'TestSet');
+        this.map.setCollision(767, true, this.mapCollision);
+        Config.plugins.AStar.setAStarMap(this.map, 'Collision', 'TileSet');
         this.mapBackground = this.map.createLayer('Background');
         this.mapForeground = this.map.createLayer('Foreground');
 
@@ -37,7 +37,7 @@ MainState.prototype = {
         }, this);
 
         this.npcs = game.add.group();
-        this.map.objects.NPCs.forEach(function(npcObject){
+        this.map.objects.Npcs.forEach(function(npcObject){
             this.npcs.add(new Npc(this, this.hero, npcObject.x, npcObject.y, npcObject.properties.id));
             this.acceptingNewDialog = true;
         }, this);
@@ -53,6 +53,8 @@ MainState.prototype = {
         this.doors.forEach(function(door){
             door.body.immovable = true;
         }, this);
+
+        this.mapDetail = this.map.createLayer('Detail');
     },
 
     update: function() {
