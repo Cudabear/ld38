@@ -17,6 +17,8 @@ MainState.prototype = {
 
         game.physics.startSystem(Phaser.Physics.Arcade);
 
+        game.input.onDown.add(this.handleClick, this);
+
         this.map = game.add.tilemap(this.tilemapKey);
         this.map.addTilesetImage('TestSet');
         this.mapCollision = this.map.createLayer('Collision');
@@ -59,20 +61,18 @@ MainState.prototype = {
     },
 
     render: function() {
-        this.doors.forEach(function(door){
-            game.debug.spriteBounds(door);
-        });
 
-        game.debug.spriteBounds(this.hero);
     },
 
     handleInput: function() {
-        if(game.input.keyboard.downDuration(Phaser.Keyboard.A, 5)) {
-            if(this.isDialog){
-                this.advanceDialog();
-            } else {
-                this.acceptingNewDialog = true;
-            }
+
+    },
+
+    handleClick: function() {
+        if(this.isDialog){
+            this.advanceDialog();
+        } else {
+            this.acceptingNewDialog = true;
         }
     },
 
@@ -119,7 +119,7 @@ MainState.prototype = {
         if(this.acceptingNewDialog) {
             this.acceptingNewDialog = false;
             this.isDialog = true;
-            this.dialogArray = dialog;
+            this.dialogArray = JSON.parse(JSON.stringify(dialog));
             this.advanceDialog();
         }
     },

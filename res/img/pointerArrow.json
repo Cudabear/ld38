@@ -1,0 +1,19 @@
+{"frames":[
+
+{
+	"filename": "bounce00",
+	"frame": {"x": 0, "y": 0, "w":32, "h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": 0, "w":32, "h":48},
+	"sourceSize": {"w":32, "h":48}
+},{
+	"filename": "bounce01",
+	"frame": {"x": 0, "y": 0, "w":32, "h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x": 0, "y": -5, "w":32, "h":48},
+	"sourceSize": {"w":32, "h":48}
+}
+
+]}
