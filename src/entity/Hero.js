@@ -50,7 +50,8 @@ Hero.prototype.constants = { };
 Hero.prototype.constants.speed = 150;
 Hero.prototype.constants.maxHealth = 100;
 Hero.prototype.constants.invulnTime = 50;
-Hero.prototype.health = Hero.prototype.constants.maxHealth;
+Hero.prototype.constants.healthPotionHealAmount = 10;
+Hero.prototype.health = Hero.prototype.constants.maxHealth/10;
 
 Hero.prototype.update = function() {
     if(this.stunnedCounter === 0){
@@ -161,5 +162,10 @@ Hero.prototype.getExploaded = function(bomb, force){
     this.stunnedCounter = this.constants.invulnTime;
     this.body.velocity.x = force*Math.cos(game.physics.arcade.angleBetween(bomb, this));
     this.body.velocity.y = force*Math.sin(game.physics.arcade.angleBetween(bomb, this));
+}
+
+Hero.prototype.pickupHealth = function(){
+    this.heal(this.constants.healthPotionHealAmount);
+    this.updateHealthbarCrop();
 }
 

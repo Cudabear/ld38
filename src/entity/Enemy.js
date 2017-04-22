@@ -82,7 +82,7 @@ Enemy.prototype.constants.bombFlySpeed = 150;
 Enemy.prototype.constants.bombExplosionTime = 100;
 Enemy.prototype.constants.bombExplosionRadius = 50;
 Enemy.prototype.constants.bombKnockback = 250;
-Enemy.prototype.maxHealth = 10;
+Enemy.prototype.maxHealth = 1;
 Enemy.prototype.health = Enemy.prototype.maxHealth;
 
 Enemy.prototype.update = function() {
@@ -161,6 +161,22 @@ Enemy.prototype.getHit = function(attacker, knockback) {
     this.attackWindupCounter = 0;
     this.tint = 0xFF0000;
     Config.sfxObjects.hit.play();
+
+    if(!this.alive){
+        var coinsToDrop = game.rnd.between(0, 10);
+
+        for(var i = 0; i < coinsToDrop; i++){
+            var coin = this.mainState.coins.create(this.x, this.y, 'coin');
+
+            coin.body.velocity.setTo(game.rnd.between(-30, 30), game.rnd.between(-30, 30));
+        }
+
+        if(game.rnd.between(0, 10)){
+            var potion = this.mainState.potions.create(this.x, this.y, 'healthpotion');
+
+            potion.body.velocity.setTo(game.rnd.between(-30, 30), game.rnd.between(-30, 30));   
+        }
+    }
 }
 
 Enemy.prototype.attemptAttack = function(sightBlockingTiles) {
