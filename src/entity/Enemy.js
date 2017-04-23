@@ -45,6 +45,7 @@ Enemy = function(type, x, y, mainState, target, enemies, map, collisionMap, dial
         this.speechbubble = game.add.sprite(x+32, y-32, 'speechbubble');
         this.speechbubble.anchor.setTo(0.5);
         this.mainState.setDialog(NpcDialog[this.dialog].dialog);
+        this.dialog = false;
     }
 
     this.weaponTarget = new Phaser.Point();
@@ -58,6 +59,7 @@ Enemy = function(type, x, y, mainState, target, enemies, map, collisionMap, dial
     this.anchor.setTo(0.5);
 
     game.physics.arcade.enable(this);
+    this.body.collideWorldBounds = true;
 
     this.facing = 'north';
 }

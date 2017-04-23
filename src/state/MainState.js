@@ -45,14 +45,26 @@ MainState.prototype = {
         }
 
         this.enemies = game.add.group();
-        this.map.objects.Enemies.forEach(function(enemyObject){
-            var temp = new Enemy(enemyObject.type, enemyObject.x, enemyObject.y, this, this.hero, this.enemies, this.map, this.mapCollision, enemyObject.properties ? enemyObject.properties.dialog : false);
-            this.enemies.add(temp);
-            
-            if(enemyObject.properties && enemyObject.properties.range){
-                temp.attackDistance = parseInt(enemyObject.properties.range);
-            }
-        }, this);
+        if(!UserData.levelData[this.tilemapKey]){
+            this.map.objects.Enemies.forEach(function(enemyObject){
+                var temp = new Enemy(enemyObject.type, enemyObject.x, enemyObject.y, this, this.hero, this.enemies, this.map, this.mapCollision, enemyObject.properties ? enemyObject.properties.dialog : false);
+                this.enemies.add(temp);
+                
+                if(enemyObject.properties && enemyObject.properties.range){
+                    temp.attackDistance = parseInt(enemyObject.properties.range);
+                }
+            }, this);
+        } else {
+            UserData.levelData[this.tilemapKey].enemies.forEach(function(enemy){
+                var temp = new Enemy(enemy.mobType, enemy.x, enemy.y, this, this.hero, this.enemies, this.map, this.mapCollision, enemy.dialog);
+                this.enemies.add(temp);
+
+                temp.health = enemy.health;
+                if(enemy.range > 1000){
+                    temp.attackDistance = parseInt(enemy.range);
+                }
+            }, this);
+        }
 
 
         this.npcs = game.add.group();
@@ -62,8 +74,19 @@ MainState.prototype = {
         }, this);
 
         this.coins = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
+        if(UserData.levelData[this.tilemapKey]){
+            UserData.levelData[this.tilemapKey].coins.forEach(function(coin){
+                this.coins.create(coin.x, coin.y, 'coin');
+            }, this);
+        }
 
         this.potions = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
+        if(UserData.levelData[this.tilemapKey]){
+            UserData.levelData[this.tilemapKey].potions.forEach(function(potion){
+                this.potions.create(potion.x, potion.y, 'healthpotion');
+            }, this);
+        }
+
 
         this.doors = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
         this.map.createFromObjects('Doors', 'door', 'arrow', 0, true, false, this.doors, Phaser.Sprite, false);
@@ -72,15 +95,23 @@ MainState.prototype = {
         }, this);
 
         this.triggers = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
-        if(this.map.objects.Triggers){
-            this.map.createFromObjects('Triggers', 'trigger', 'arrow', 0, true, false, this.triggers, Phaser.sprite, false);
+        if(!UserData.levelData[this.tilemapKey]){
+            if(this.map.objects.Triggers){
+                this.map.createFromObjects('Triggers', 'trigger', 'arrow', 0, true, false, this.triggers, Phaser.sprite, false);
+            }
+        } else {
+            UserData.levelData[this.tilemapKey].triggers.forEach(function(trigger){
+                var temp = this.triggers.create(trigger.x, trigger.y, 'arrow');
+                temp.callback = trigger.callback;
+                temp.dialog = trigger.dialog;
+            }, this);
         }
 
         this.mapDetail = this.map.createLayer('Detail');
 
-        this.coinCounter = game.add.bitmapText(game.width - 150, game.height - 100, 'font', '$0', 32);
+        this.coinCount = UserData.coinCount === undefined ? 0 : UserData.coinCount;
+        this.coinCounter = game.add.bitmapText(game.width - 150, game.height - 100, 'font', '$'+this.coinCount.toFixed(2), 32);
         this.coinCounter.anchor.setTo(0.5);
-        this.coinCount = 0;
     },
 
     update: function() {
@@ -186,12 +217,70 @@ MainState.prototype = {
     },
     
     changeRoom(hero, door){
+        door.kill();
         game.camera.onFadeComplete.addOnce(function(){
             game.state.start(door.toMap);
         });
-        
+
+        if(door.spawnPoint){
+            var tempArray = door.spawnPoint.split(', ');
+            game.state.states[door.toMap].spawnSide = {x: parseInt(tempArray[0]), y: parseInt(tempArray[1])};
+        }
+
         game.camera.fade();
         UserData.heroData = this.hero.getVitals();
+        UserData.coinCount = this.coinCount;
+
+        var levelData = {
+            enemies: [ ],
+            coins: [ ],
+            potions: [ ],
+            triggers: [ ]
+        };
+
+        this.enemies.forEach(function(enemy) {
+            if(enemy.alive){
+                levelData.enemies.push({
+                    x: enemy.x,
+                    y: enemy.y,
+                    mobType: enemy.mobType,
+                    dialog: enemy.dialog,
+                    health: enemy.health,
+                    range: enemy.attackDistance
+                });
+            }
+        }, this);
+
+        this.coins.forEach(function(coin) {
+            if(coin.alive){
+                levelData.coins.push({
+                    x: coin.x,
+                    y: coin.y   
+                });
+            }
+        }, this);
+
+        this.potions.forEach(function(potion){
+            if(potion.alive){
+                levelData.potions.push({
+                    x: potion.x,
+                    y: potion.y
+                });
+            }
+        }, this);
+
+        this.triggers.forEach(function(trigger){
+            if(trigger.exists){
+                levelData.triggers.push({
+                    x: trigger.x,
+                    y: trigger.y,
+                    dialog: trigger.dialog,
+                    callback: trigger.callback
+                });
+            }
+        }, this);
+
+        UserData.levelData[this.tilemapKey] = levelData;
     },
 
     collectCoin(hero, coin){

@@ -29,6 +29,12 @@ NpcDialog = {
 			game.physics.arcade.moveToXY(mainState.enemies.getAt(0), 194, 68, 140);
 			game.time.events.add(1000, function() {
 		        mainState.enemies.getAt(0).kill();
+		       	mainState.map.putTile(768, 2, 11, mainState.mapCollision);
+			    mainState.map.putTile(768, 3, 11, mainState.mapCollision);
+			    mainState.map.putTile(null, 2, 11, mainState.mapDetail);
+			    mainState.map.putTile(null, 3, 11, mainState.mapDetail);
+		        game.camera.flash(0xFFFFFF, 150, false, 0.5);
+    			game.camera.shake(0.025, 100);
 		    }, this);
 		}
 	}

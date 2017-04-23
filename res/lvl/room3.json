@@ -55,10 +55,12 @@
                  "name":"door",
                  "properties":
                     {
+                     "spawnPoint":"194, 134",
                      "toMap":"room2"
                     },
                  "propertytypes":
                     {
+                     "spawnPoint":"string",
                      "toMap":"string"
                     },
                  "rotation":0,

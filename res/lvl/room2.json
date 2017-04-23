@@ -55,10 +55,12 @@
                  "name":"door",
                  "properties":
                     {
+                     "spawnPoint":"803, 124",
                      "toMap":"room1"
                     },
                  "propertytypes":
                     {
+                     "spawnPoint":"string",
                      "toMap":"string"
                     },
                  "rotation":0,
@@ -74,10 +76,12 @@
                  "name":"door",
                  "properties":
                     {
+                     "spawnPoint":"511, 567",
                      "toMap":"room3"
                     },
                  "propertytypes":
                     {
+                     "spawnPoint":"string",
                      "toMap":"string"
                     },
                  "rotation":0,
@@ -151,7 +155,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":24,
+ "nextobjectid":25,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

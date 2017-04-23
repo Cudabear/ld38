@@ -55,10 +55,12 @@
                  "name":"door",
                  "properties":
                     {
-                     "toMap":"town-revisit"
+                     "spawnPoint":"830, 180",
+                     "toMap":"initial"
                     },
                  "propertytypes":
                     {
+                     "spawnPoint":"string",
                      "toMap":"string"
                     },
                  "rotation":0,
@@ -74,10 +76,12 @@
                  "name":"door",
                  "properties":
                     {
+                     "spawnPoint":"510, 575",
                      "toMap":"room2"
                     },
                  "propertytypes":
                     {
+                     "spawnPoint":"string",
                      "toMap":"string"
                     },
                  "rotation":0,
@@ -159,7 +163,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":25,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
