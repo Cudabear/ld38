@@ -137,6 +137,8 @@ Enemy.prototype.update = function() {
         if(this.speechbubble){
             this.speechbubble.exists = false;
         }
+    } else{
+        this.body.velocity.setTo(0);
     }
 }
 

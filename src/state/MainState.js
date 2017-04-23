@@ -107,11 +107,36 @@ MainState.prototype = {
             }, this);
         }
 
+        this.triggers.forEach(function(trigger){
+            trigger.body.immovable = true;
+        }, this);
+
         this.mapDetail = this.map.createLayer('Detail');
 
         this.coinCount = UserData.coinCount === undefined ? 0 : UserData.coinCount;
         this.coinCounter = game.add.bitmapText(game.width - 150, game.height - 100, 'font', '$'+this.coinCount.toFixed(2), 32);
         this.coinCounter.anchor.setTo(0.5);
+
+        this.choiceLine1 = game.add.bitmapText(game.world.centerX, game.height - 100, 'font', '', 24);
+        this.choiceLine1.anchor.setTo(0.5);
+        this.choiceLine1.inputEnabled = true;
+        this.choiceLine1.events.onInputDown.add(function(){
+            this.isDialog = false;
+            this.choice.yesCallback(this);
+            this.choice = null;
+            this.choiceLine1.setText('');
+            this.choiceLine2.setText('');
+        }, this);
+        this.choiceLine2 = game.add.bitmapText(game.world.centerX, game.height - 50, 'font', '', 24);
+        this.choiceLine2.anchor.setTo(0.5);
+        this.choiceLine2.inputEnabled = true;
+        this.choiceLine2.events.onInputDown.add(function(){
+            this.isDialog = false;
+            this.choice.noCallback(this);
+            this.choice = null;
+            this.choiceLine1.setText('');
+            this.choiceLine2.setText('');
+        }, this);
     },
 
     update: function() {
@@ -192,10 +217,11 @@ MainState.prototype = {
         }, this);
     },
 
-    setDialog(dialog){
+    setDialog(dialog,choice){
         if(this.acceptingNewDialog) {
             this.acceptingNewDialog = false;
             this.isDialog = true;
+            this.choice = choice;
             this.dialogArray = JSON.parse(JSON.stringify(dialog));
             this.advanceDialog();
         }
@@ -208,7 +234,13 @@ MainState.prototype = {
             this.dialogText.setText(this.currentDialogLine);
         } else {
             this.dialogText.setText('');
-            this.isDialog = false;
+
+            if(!this.choice){
+                this.isDialog = false;
+            } else{
+                this.choiceLine1.setText(this.choice.yes);
+                this.choiceLine2.setText(this.choice.no);
+            }
 
             if(this.triggerCallback){
                 this.triggerCallback(this);
@@ -304,6 +336,8 @@ MainState.prototype = {
             this.triggerCallback = NpcDialog[trigger.dialog].callback;
         }
 
-        trigger.exists = false;
+        if(!NpcDialog[trigger.dialog].preserve){
+            trigger.exists = false;
+        }
     }
 }

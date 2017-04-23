@@ -29,7 +29,14 @@ Config = {
         {key: "Town", jsonPath: "res/lvl/town.json"},
         {key: "Room1", jsonPath: "res/lvl/room1.json"},
         {key: "Room2", jsonPath: "res/lvl/room2.json"},
-        {key: "Room3", jsonPath: "res/lvl/room3.json"}
+        {key: "Room3", jsonPath: "res/lvl/room3.json"},
+        {key: "Room4", jsonPath: "res/lvl/room4.json"},
+        {key: "Room5", jsonPath: "res/lvl/room5.json"},
+        {key: "Room6", jsonPath: "res/lvl/room6.json"},
+        {key: "Room7", jsonPath: "res/lvl/room7.json"},
+        {key: "Room8", jsonPath: "res/lvl/room8.json"},
+        {key: "Room9", jsonPath: "res/lvl/room9.json"},
+        {key: "Room10", jsonPath: "res/lvl/room10.json"},
     ],
     fonts: [
         //{key: "FontKey", imagePath: "path/to/image", xmlPath: "path/to/XML"}
@@ -45,6 +52,7 @@ Config = {
     //music loops by default
     music: [
         //{key: "MusicKey", filePath: "path/to/audiofile"}
+        {key: "bgm", filePath: "res/sfx/bgm.mp3"}
     ],
     //will be populated by all the music objects after load
     musicObjects: { },

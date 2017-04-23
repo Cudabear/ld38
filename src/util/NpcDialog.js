@@ -37,5 +37,186 @@ NpcDialog = {
     			game.camera.shake(0.025, 100);
 		    }, this);
 		}
+	},
+	'fakeDoor': {
+		dialog: ['You chose the wrong door!'],
+		callback: function(mainState){
+			mainState.hero.getHit();
+		}
+	},
+	'fakeDoorWarning': {
+		dialog: ['one of these doors is the correct one',
+			'and one of them will hurt you.',
+			'There\'s absolutely no way to tell which is which.',
+			'Good luck!'],
+		important: true
+	},
+	'room5-aoe': {
+		dialog: ['can you believe someone actually fell for that STUPID trick?',
+			'you didn\'t fall for it, did you?',
+			'Anyway, the last guy dropped some bombs and I\'m itching to try them out.',
+			'Wanna be my test subject?']
+	},
+	'room6-trap': {
+		dialog: [
+			'haha!, blow the trap and trap this fool!'
+		],
+		callback: function(mainState){
+			mainState.map.putTile(144, 14, 18, mainState.mapDetail);
+		    mainState.map.putTile(144, 15, 18, mainState.mapDetail);
+		    mainState.map.putTile(144, 16, 18, mainState.mapDetail);
+		    mainState.map.putTile(144, 17, 18, mainState.mapDetail);
+	        game.camera.flash(0xFFFFFF, 150, false, 0.5);
+			game.camera.shake(0.025, 100);
+			game.time.events.add(5000, function() {
+			    mainState.triggerTrigger(mainState.hero, {dialog: 'room6-help'})
+		    }, this);
+		}
+	},
+	'room6-help': {
+		dialog: ['were you the guy who dropped the bombs?',
+			'if so, let me pay you back!'],
+		callback: function(mainState) {
+			mainState.map.putTile(768, 14, 18, mainState.mapCollision);
+			mainState.map.putTile(768, 15, 18, mainState.mapCollision);
+			mainState.map.putTile(768, 16, 18, mainState.mapCollision);
+			mainState.map.putTile(768, 17, 18, mainState.mapCollision);
+			mainState.map.putTile(null, 14, 18, mainState.mapDetail);
+		    mainState.map.putTile(null, 15, 18, mainState.mapDetail);
+		    mainState.map.putTile(null, 16, 18, mainState.mapDetail);
+		    mainState.map.putTile(null, 17, 18, mainState.mapDetail);
+			game.camera.flash(0xFFFFFF, 300, false, 0.90);
+			game.camera.shake(0.025, 200);
+
+			mainState.triggerCallback = false;
+
+			mainState.enemies.forEach(function(enemy){
+				enemy.kill();
+			}, mainState);
+
+			var temp = new Npc(mainState, mainState.hero, 436, 168, 'room6-npc', true);
+		}
+	},
+	'room6-npc': {
+		dialog: ['hey are you okay?',
+			'I\'m suprised there were so many here',
+			'They really mass up when we\'re not looking',
+			'Anyway, the boss is up ahead.  Good luck!'],
+		important: true
+	},
+	'garbage': {
+		dialog: ['you shouldnt ever see this!']
+	},
+	'room7-backline': {
+		dialog: ['I\'m so excited to kill the boss',
+			'It\'s my first time, how about you?']
+	},
+	'room7-bouncer': {
+		dialog: ['There\'s been a huge influx of adventurers lately',
+			'so I was hired to keep the peace and make sure everyone gets',
+			'a fair shot at fighting the boss.  Are you ready to wait in line?'],
+		choice: {
+			yes: 'I\'ll wait as long as it takes.',
+			yesCallback: function(mainState) {
+				mainState.triggerTrigger(mainState.hero, {dialog: 'room7-bouncer-yes'});
+			},
+			no: 'Screw this!',
+			noCallback: function(mainState) {
+				mainState.triggerTrigger(mainState.hero, {dialog: 'room7-bouncer-no'});
+			}
+		},
+		important: true
+	},
+	'room7-bouncer-no': {
+		dialog: ['Well fine.  But the line probably won\'t be any shorter',
+			'by the time you come back.'],
+		callback: function() {}
+	},
+	'room7-bouncer-yes': {
+		dialog: ['Alright.  It\'s going to take a while, though.'],
+		callback: function() {
+			game.camera.onFadeComplete.addOnce(function(){
+	            game.state.start('room8');
+	        });
+	        game.camera.fade();
+		}
+	},
+	'boss-text': {
+		dialog: ['...',
+			'man, I\'m so tired...',
+			'Oh?  Is someone there?',
+			'Oh gosh, sorry, this is so unprofessional',
+			'I thought I was done for the day.  It seems I was wrong',
+			'*clears throat*',
+			'YOU WILL RUE THE DAY YOU CHALLEN...*cough*',
+			'*hack*',
+			'*sputter*',
+			'...',
+			'look...',
+			'I\'ve lost track of how many adventurers have challenged me today',
+			'I\'m very tired.',
+			'Can we skip the formality and I\'ll just let you at the treasure?'],
+		choice: {
+			yes: 'Treasure faster, sounds good!',
+			yesCallback: function(mainState){
+				mainState.triggerTrigger(mainState.hero, {dialog: 'room8-boss-yes'});
+				mainState.npcs.getAt(0).dialog = NpcDialog['room8-boss-post-choice'].dialog;
+				mainState.npcs.getAt(0).choice = null;
+				mainState.choice = null;
+			},
+			no: 'I have to earn it, you vile beast!',
+			noCallback: function(mainState){
+				mainState.triggerTrigger(mainState.hero, {dialog: 'room8-boss-no'});
+				mainState.npcs.getAt(0).dialog = NpcDialog['room8-boss-post-choice'].dialog;
+				mainState.npcs.getAt(0).choice = null;
+				mainState.choice = null;
+			}
+		}
+	},
+	'room8-boss-post-choice': {
+		dialog: ['I\'m going to sleep.  Just get your loot and scram'],
+		choice: null,
+		callback: null
+	},
+	'room8-boss-yes': {
+		dialog: ['Awesome. Look man, you\'re a lifesaver.  Just go through the',
+			'door behind me and you cna have whatever\'s left.'],
+		callback: function(mainState) {
+
+		}
+
+	},
+	'room8-boss-no': {
+		dialog: ['You know what?  I don\'t have time for you.'],
+		callback: function(mainState) {
+			mainState.hero.getHit();
+			game.camera.flash(0xFFFFFF, 150, false, 0.50);
+			game.camera.shake(0.025, 100);
+			mainState.hero.stunnedCounter = 180;
+			game.physics.arcade.moveToXY(mainState.hero, 515, 626, mainState.hero.speed, 1000)
+			mainState.triggerCallback = false;
+			game.time.events.add(1000, function() {
+			    game.camera.onFadeComplete.addOnce(function(){
+	           		game.state.start('room9');
+	        	});
+			    game.camera.fade();
+		    }, this);
+		}
+	},
+	'room9-lockedoor': {
+		dialog: ['It\'s locked.'],
+		preserve: true
+	},
+	'room9-bouncer': {
+		dialog: ['huh, you again?',
+			'You didn\'t take the free loot, did you?',
+			'Well, that\'s a first for me.',
+			'Look I\'m off for the day now, so it looks like you\'re out of luck.',
+			'You\'ll have to try again another time.']
+	},
+	'room10-chest': {
+		dialog: ['something witty about treasure being claimed here',
+			'leave through the door to go back to town']
+
 	}
 }

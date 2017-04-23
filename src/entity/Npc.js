@@ -8,6 +8,7 @@ Npc = function(mainState, hero, x, y, id, important) {
     this.anchor.setTo(0.5);
 
     this.dialog = NpcDialog[id].dialog;
+    this.choice = NpcDialog[id].choice;
     this.important = NpcDialog[id].important || false;
 
     game.physics.arcade.enable(this);
@@ -34,8 +35,10 @@ Npc.prototype.handleInput = function() {
 
 Npc.prototype.handleClick = function() {
     if(game.physics.arcade.distanceBetween(this, this.hero) <= 50){
-        this.mainState.setDialog(this.dialog);
-        this.arrow.exists = false;
+        this.mainState.setDialog(this.dialog, this.choice);
+        if(this.arrow){
+            this.arrow.exists = false;
+        }
         NpcDialog[this.id].important = false;
     }
 }
