@@ -10,7 +10,9 @@ Config = {
         {key: "bomb", imagePath: "res/img/sprites/bomb.png"},
         {key: "speechbubble", imagePath: "res/img/sprites/speechbubble.png"},
         {key: "coin", imagePath: "res/img/sprites/coin.png"},
-        {key: "healthpotion", imagePath: "res/img/sprites/healthpotion.png"}
+        {key: "healthpotion", imagePath: "res/img/sprites/healthpotion.png"},
+        {key: "bottombar", imagePath: "res/img/sprites/bottom-bar.png"},
+        {key: "choicebutton", imagePath: "res/img/sprites/choice-button.png"},
     ],
     spritesheets: [
         //{key: "SpriteKey", imagePath: "path/to/image", frameWidth: frameWidth, frameHeight: frameHeight, frameMax: frameMax, margin: margin, spacing: spacing}
@@ -47,7 +49,8 @@ Config = {
         {key: "hit", filePath: "res/sfx/hit.wav"},
         {key: "select", filePath: "res/sfx/select.wav"},
         {key: "coin", filePath: "res/sfx/coin.wav"},
-        {key: "health", filePath: "res/sfx/health.wav"}
+        {key: "health", filePath: "res/sfx/health.wav"},
+        {key: "explosion", filePath: "res/sfx/explosion.wav"},
     ],
     //music loops by default
     music: [

@@ -40,9 +40,10 @@ Hero = function(mainState, spawnSide) {
 
     this.stunnedCounter = 0;
 
-    this.healthBarEmpty = game.add.sprite(50, game.height - 50, 'healthbar', 1);
-    this.healthBarFull = game.add.sprite(50, game.height - 50, 'healthbar', 0);
+    this.healthBarEmpty = game.add.sprite(15, game.height - 39, 'healthbar', 1);
+    this.healthBarFull = game.add.sprite(15, game.height - 39, 'healthbar', 0);
     this.updateHealthbarCrop();
+    this.heroText = game.add.bitmapText(15, game.height - 120, 'font', 'Our Hero', 24);
 }
 
 Hero.prototype = Object.create(Phaser.Sprite.prototype);

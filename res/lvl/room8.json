@@ -48,7 +48,28 @@
          "draworder":"topdown",
          "height":20,
          "name":"Doors",
-         "objects":[],
+         "objects":[
+                {
+                 "height":0,
+                 "id":167,
+                 "name":"door",
+                 "properties":
+                    {
+                     "spawnPos":"191, 132",
+                     "toMap":"room10"
+                    },
+                 "propertytypes":
+                    {
+                     "spawnPos":"string",
+                     "toMap":"string"
+                    },
+                 "rotation":0,
+                 "type":"door",
+                 "visible":true,
+                 "width":0,
+                 "x":545,
+                 "y":68
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -111,7 +132,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":167,
+ "nextobjectid":168,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
