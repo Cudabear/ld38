@@ -1,6 +1,7 @@
 Hero = function(mainState, spawnSide) {
     this.mainState = mainState;
     this.spawnSide = spawnSide;
+    this.isHero = true;
 
     var spawnX = 0;
     var spawnY = 0;
@@ -35,6 +36,10 @@ Hero = function(mainState, spawnSide) {
     this.animations.add('walk-face-down', [8,9,10,11], 6);
     this.animations.add('walk-face-left', [16,17,18,19], 6);
     this.animations.add('walk-face-right', [12,13,14,15], 6);
+    this.animations.add('attack-face-down', [21,20,20,20], 15);
+    this.animations.add('attack-face-up', [22,22,23,23], 15);
+    this.animations.add('attack-face-right', [24,24,25,25], 15);
+    this.animations.add('attack-face-left', [26,26,27,27], 15);
 
     game.add.existing(this);
     this.anchor.setTo(0.5);
@@ -118,7 +123,37 @@ Hero.prototype.handleInput = function() {
         this.body.velocity.x = this.constants.speed*Math.sin(45) * (this.body.velocity.x < 0 ? -1 : 1);
     }
 
-    if(this.slashEffect.exists){
+    if(!this.slashEffect.exists){
+        if(this.facing === 'up'){
+            if(this.body.velocity.y === 0){
+                this.animations.play('stand-face-up');
+            }else{
+                this.animations.play('walk-face-up');
+            }
+        }else if(this.facing === 'down'){
+            if(this.body.velocity.y === 0){
+                this.animations.play('stand-face-down');
+            }else{
+                this.animations.play('walk-face-down');
+            }
+        }else if(this.facing === 'left'){
+            if(this.body.velocity.x === 0){
+                this.animations.play('stand-face-left');
+            }else{
+                this.animations.play('walk-face-left');
+            }
+        }else if(this.facing === 'right'){
+            if(this.body.velocity.x === 0){
+                this.animations.play('stand-face-right');
+            }else{
+                this.animations.play('walk-face-right');
+            }
+        }
+    }
+}
+
+Hero.prototype.handleClick = function() {
+    if(!this.mainState.isDialog){
         var pointerDx = this.x - game.input.mousePointer.x;
         var pointerDy = this.y - game.input.mousePointer.y;
 
@@ -135,38 +170,8 @@ Hero.prototype.handleInput = function() {
                 this.facing = 'up';
             }
         }
-    }
-
-    if(this.facing === 'up'){
-        if(this.body.velocity.y === 0){
-            this.animations.play('stand-face-up');
-        }else{
-            this.animations.play('walk-face-up');
-        }
-    }else if(this.facing === 'down'){
-        if(this.body.velocity.y === 0){
-            this.animations.play('stand-face-down');
-        }else{
-            this.animations.play('walk-face-down');
-        }
-    }else if(this.facing === 'left'){
-        if(this.body.velocity.x === 0){
-            this.animations.play('stand-face-left');
-        }else{
-            this.animations.play('walk-face-left');
-        }
-    }else if(this.facing === 'right'){
-        if(this.body.velocity.x === 0){
-            this.animations.play('stand-face-right');
-        }else{
-            this.animations.play('walk-face-right');
-        }
-    }
-}
-
-Hero.prototype.handleClick = function() {
-    if(!this.mainState.isDialog){
         this.slashEffect.doAttack();
+        this.animations.play('attack-face-'+this.facing);
     }
 }
 

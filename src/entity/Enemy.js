@@ -13,10 +13,10 @@ Enemy = function(type, x, y, mainState, target, enemies, map, collisionMap, dial
         this.attackWindupTime = this.constants.attackWindupTimeMelee;
         this.attackCooldownTime = this.constants.cooldownTimeMelee;
 
-        this.animations.add('bounce-up', [0,1], 8, true);
-        this.animations.add('bounce-down', [2,3], 8, true);
-        this.animations.add('bounce-left', [4,5], 8, true);
-        this.animations.add('bounce-right', [6,7], 8, true);
+        this.animations.add('walk-up', [0,1], 8, true);
+        this.animations.add('walk-down', [2,3], 8, true);
+        this.animations.add('walk-left', [4,5], 8, true);
+        this.animations.add('walk-right', [6,7], 8, true);
 
         this.slashEffect = new SlashEffect(this);
     } else if(this.mobType === 'ranged'){
@@ -149,17 +149,13 @@ Enemy.prototype.update = function() {
 
     if(this.mobType === 'melee'){
         if(this.body.velocity.x < -1){
-            this.animations.play('bounce-left');
-            console.log('facing left');
+            this.animations.play('walk-left');
         }else if(this.body.velocity.x > 1){
-            this.animations.play('bounce-right');
-            console.log('facing right');
+            this.animations.play('walk-right');
         }else if(this.body.velocity.y < -1){
-            this.animations.play('bounce-up');
-            console.log('facing up');
+            this.animations.play('walk-up');
         }else if(this.body.velocity.y > 1){
-            this.animations.play('bounce-down');
-            console.log('facing down');
+            this.animations.play('walk-down');
         }
     }
 }

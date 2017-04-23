@@ -8,6 +8,9 @@ SlashEffect = function(owner){
     this.body.immovable = true;
     this.exists = false;
     this.pivot.y = owner.height;
+    if(owner.isHero){
+        this.pivot.y = 24;
+    }
 
     this.owner = owner;
 }
@@ -17,6 +20,8 @@ SlashEffect.prototype.constructor = SlashEffect;
 SlashEffect.prototype.update = function() {
     this.x = this.owner.x;
     this.y = this.owner.y;
+
+
         
     if(this.owner.mobType){
         this.rotation = game.physics.arcade.angleBetween(this, this.owner.weaponTarget) + Math.PI/2;
