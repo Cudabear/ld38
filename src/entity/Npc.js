@@ -4,7 +4,7 @@ Npc = function(mainState, hero, x, y, id, key, flipped) {
     this.id = id;
     this.key = key || 'npcs';
     Phaser.Sprite.call(this, game, x, y, this.key);
-    if(this.key === 'npcs'){
+    if(this.key === 'npcs'){  
         this.frame = game.rnd.between(0,2);
     }
 
@@ -39,15 +39,17 @@ Npc.prototype.update = function() {
 }
 
 Npc.prototype.handleInput = function() {
-
+    if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 5)){
+        if(game.physics.arcade.distanceBetween(this, this.hero) <= 50){
+            this.mainState.setDialog(this.dialog, this.choice, this.callback);
+            if(this.arrow){
+                this.arrow.exists = false;
+            }
+            NpcDialog[this.id].important = false;
+        }
+    }
 }
 
 Npc.prototype.handleClick = function() {
-    if(game.physics.arcade.distanceBetween(this, this.hero) <= 50){
-        this.mainState.setDialog(this.dialog, this.choice, this.callback);
-        if(this.arrow){
-            this.arrow.exists = false;
-        }
-        NpcDialog[this.id].important = false;
-    }
+    
 }

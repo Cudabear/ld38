@@ -3,13 +3,15 @@ NpcDialog = {
 		dialog: ['hi', 'my name is error']
 	},
 	'instructor': {
-		dialog: ['here is some informative dialog to help you get started on your quest',
-			'you can move with the WSAD keys, but you probably already knew that',
-			'you can also move with the arrow keys, if you\'re weird like that.',
-			'Use the left mouse button to attack.',
-			'You attack in the direction of your mousepointer',
+		dialog: ['here is some informative dialog to help you get started on your quest.  You can press spacebar to talk to npcs and advance dialog.',
+			'you can move with the WSAD keys, but you probably already knew that.  you can also move with the arrow keys, if you\'re weird like that.',
+			'Use the spacebar to attack in the direction you\'re facing.',
 			'Good luck on your quest!' ],
 		important: true
+	},
+	'town-signpost': {
+		dialog: ['Most treasure found in cave (in one journey):', '1. $300,000 Superbro \n2. $275,000 Hanzo \n3. $224,000 Sarah',
+		'... the list continues on for a while']
 	},
 	'dead': {
 		dialog: ['Oh, it seems you have succumbed to the elements of the dungeon.  Somehow, even though there\'s hardly anything left here.'],

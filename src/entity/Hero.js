@@ -44,7 +44,7 @@ Hero = function(mainState, spawnSide) {
     game.add.existing(this);
     this.anchor.setTo(0.5);
 
-    this.facing = 'north';
+    this.facing = 'down';
     this.invulnTimeCounter = 0;
 
 
@@ -123,6 +123,11 @@ Hero.prototype.handleInput = function() {
         this.body.velocity.x = this.constants.speed*Math.sin(45) * (this.body.velocity.x < 0 ? -1 : 1);
     }
 
+    if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 5)){
+        this.slashEffect.doAttack();
+        this.animations.play('attack-face-'+this.facing);
+    }
+
     if(!this.slashEffect.exists){
         if(this.facing === 'up'){
             if(this.body.velocity.y === 0){
@@ -153,26 +158,24 @@ Hero.prototype.handleInput = function() {
 }
 
 Hero.prototype.handleClick = function() {
-    if(!this.mainState.isDialog){
-        var pointerDx = this.x - game.input.mousePointer.x;
-        var pointerDy = this.y - game.input.mousePointer.y;
+    // if(!this.mainState.isDialog){
+    //     var pointerDx = this.x - game.input.mousePointer.x;
+    //     var pointerDy = this.y - game.input.mousePointer.y;
 
-        if(Math.abs(pointerDx) > Math.abs(pointerDy)){
-            if(pointerDx < 0){
-                this.facing = 'right';
-            } else {
-                this.facing = 'left';
-            }
-        } else {
-            if(pointerDy < 0){
-                this.facing = 'down';
-            } else{
-                this.facing = 'up';
-            }
-        }
-        this.slashEffect.doAttack();
-        this.animations.play('attack-face-'+this.facing);
-    }
+    //     if(Math.abs(pointerDx) > Math.abs(pointerDy)){
+    //         if(pointerDx < 0){
+    //             this.facing = 'right';
+    //         } else {
+    //             this.facing = 'left';
+    //         }
+    //     } else {
+    //         if(pointerDy < 0){
+    //             this.facing = 'down';
+    //         } else{
+    //             this.facing = 'up';
+    //         }
+    //     }
+    //}
 }
 
 Hero.prototype.onSlashComplete = function() {

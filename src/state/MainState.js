@@ -21,7 +21,7 @@ MainState.prototype = {
 
         this.camera.flash(0x000000);
 
-        if(this.tilemapKey === 'initial' || this.tilemapKey === 'Room7' || this.tilemapKey === 'Room9'){
+        if(this.tilemapKey === 'Room7' || this.tilemapKey === 'Room9'){
             Config.musicObjects.relaxedBgm.play();
             Config.musicObjects.upbeatBgm.stop();
         } else {

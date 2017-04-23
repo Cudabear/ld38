@@ -112,6 +112,27 @@
                  "width":0,
                  "x":315,
                  "y":551
+                }, 
+                {
+                 "height":0,
+                 "id":12,
+                 "name":"npc",
+                 "properties":
+                    {
+                     "id":"town-signpost",
+                     "key":"signpost"
+                    },
+                 "propertytypes":
+                    {
+                     "id":"string",
+                     "key":"string"
+                    },
+                 "rotation":0,
+                 "type":"npc",
+                 "visible":true,
+                 "width":0,
+                 "x":889,
+                 "y":179.666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -154,7 +175,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":9,
+ "nextobjectid":13,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

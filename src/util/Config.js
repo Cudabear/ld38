@@ -16,6 +16,7 @@ Config = {
         {key: "bouncer", imagePath: "res/img/sprites/bouncer.png"},
         {key: "signpost", imagePath: "res/img/sprites/signpost.png"},
         {key: "treasurechest", imagePath: "res/img/sprites/treasurechest.png"},
+        {key: "otherhero", imagePath: "res/img/sprites/other-hero.png"},
     ],
     spritesheets: [
         //{key: "SpriteKey", imagePath: "path/to/image", frameWidth: frameWidth, frameHeight: frameHeight, frameMax: frameMax, margin: margin, spacing: spacing}
@@ -26,7 +27,6 @@ Config = {
     ],
     animSprites: [
         //{key: "SpriteKey", imagePath: "path/to/image", jsonPath: "path/to/json"}
-        {key: "TestEnemy", imagePath: "res/img/sprites/zombie1.png", jsonPath: "res/img/sprites/zombieAnim.json"},
         {key: "slash", imagePath: "res/img/sprites/slash.png", jsonPath: "res/img/sprites/slashAnim.json"},
         {key: "pointerArrow", imagePath: "res/img/sprites/pointerArrow.png", jsonPath: "res/img/sprites/pointerArrow.json"},
         {key: "hero", imagePath: "res/img/sprites/hero-set.png", jsonPath: "res/img/sprites/hero-set.json"},

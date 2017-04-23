@@ -8,11 +8,11 @@ SelectHeroState.prototype = {
 
 		Config.musicObjects.upbeatBgm.play('', 0, 1, true);
 
-		this.hero = game.add.sprite(game.world.centerX - 120, game.world.centerY, 'hero');
+		this.hero = game.add.sprite(game.world.centerX - 120, game.world.centerY+42, 'hero');
 		this.hero.scale.setTo(3);
 		this.hero.anchor.setTo(0.5);
 
-		this.otherGuy = game.add.sprite(game.world.centerX + 120, game.world.centerY, 'TestEnemy');
+		this.otherGuy = game.add.sprite(game.world.centerX + 120, game.world.centerY, 'otherhero');
 		this.otherGuy.scale.setTo(3);
 		this.otherGuy.anchor.setTo(0.5);
 		this.otherGuyFadeTween = game.add.tween(this.otherGuy);
@@ -29,7 +29,7 @@ SelectHeroState.prototype = {
 		this.statsText.anchor.setTo(0.5);
 		this.statsText.maxWidth = 250;
 
-		this.pointerArrow = game.add.sprite(this.hero.x, this.hero.y - 128, 'pointerArrow');
+		this.pointerArrow = game.add.sprite(this.hero.x, this.hero.y - 160, 'pointerArrow');
 		this.pointerArrow.anchor.setTo(0.5);
 		this.pointerArrow.animations.add('bounce', null, 3, true);
 		this.pointerArrow.animations.play('bounce');

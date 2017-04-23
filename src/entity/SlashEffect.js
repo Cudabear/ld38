@@ -26,7 +26,17 @@ SlashEffect.prototype.update = function() {
     if(this.owner.mobType){
         this.rotation = game.physics.arcade.angleBetween(this, this.owner.weaponTarget) + Math.PI/2;
     } else {
-        this.rotation = game.physics.arcade.angleToPointer(this) + Math.PI/2;
+        //this.rotation = game.physics.arcade.angleToPointer(this) + Math.PI/2;
+
+        if(this.owner.facing == 'up'){
+            this.rotation = 0;
+        }else if(this.owner.facing == 'right'){
+            this.rotation = Math.PI/2;
+        }else if(this.owner.facing == 'down'){
+            this.rotation = Math.PI;
+        }else if(this.owner.facing == 'left'){
+            this.rotation = Math.PI*3/2
+        }
     }
 }
 
