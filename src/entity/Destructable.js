@@ -2,6 +2,10 @@ Destructable = function(mainState, key, x, y, isAlive) {
 	this.key = key || 'pot';
 	this.mainState = mainState;
 
+	if(this.key === 'barrel'){
+		this.key = 'pot';
+	}
+
 	Phaser.Sprite.call(this, game, x, y, this.key);
 	game.add.existing(this);
     this.anchor.setTo(0.5);

@@ -178,7 +178,73 @@
          "draworder":"topdown",
          "height":20,
          "name":"Destructables",
-         "objects":[],
+         "objects":[
+                {
+                 "height":0,
+                 "id":37,
+                 "name":"destructable",
+                 "rotation":0,
+                 "type":"barrel",
+                 "visible":true,
+                 "width":0,
+                 "x":81,
+                 "y":238
+                }, 
+                {
+                 "height":0,
+                 "id":38,
+                 "name":"destructable",
+                 "rotation":0,
+                 "type":"barrel",
+                 "visible":true,
+                 "width":0,
+                 "x":86,
+                 "y":206
+                }, 
+                {
+                 "height":0,
+                 "id":39,
+                 "name":"destructable",
+                 "rotation":0,
+                 "type":"barrel",
+                 "visible":true,
+                 "width":0,
+                 "x":945,
+                 "y":233
+                }, 
+                {
+                 "height":0,
+                 "id":40,
+                 "name":"destructable",
+                 "rotation":0,
+                 "type":"barrel",
+                 "visible":true,
+                 "width":0,
+                 "x":942,
+                 "y":201
+                }, 
+                {
+                 "height":0,
+                 "id":41,
+                 "name":"destructable",
+                 "rotation":0,
+                 "type":"barrel",
+                 "visible":true,
+                 "width":0,
+                 "x":501,
+                 "y":105
+                }, 
+                {
+                 "height":0,
+                 "id":42,
+                 "name":"destructable",
+                 "rotation":0,
+                 "type":"barrel",
+                 "visible":true,
+                 "width":0,
+                 "x":442,
+                 "y":109
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -186,7 +252,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":32,
+ "nextobjectid":43,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

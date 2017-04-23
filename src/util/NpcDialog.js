@@ -123,7 +123,7 @@ NpcDialog = {
 			}, mainState);
 			Config.sfxObjects.hit.play();
 
-			var temp = new Npc(mainState, mainState.hero, 436, 168, 'room6-npc', true);
+			var temp = new Npc(mainState, mainState.hero, 436, 168, 'room6-npc', 'other-hero');
 		}
 	},
 	'room6-npc': {
