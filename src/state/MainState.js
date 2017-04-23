@@ -21,6 +21,16 @@ MainState.prototype = {
 
         this.camera.flash(0x000000);
 
+        if(this.tilemapKey === 'Room7' || this.tilemapKey === 'Room9'){
+            Config.musicObjects.relaxedBgm.play();
+            Config.musicObjects.upbeatBgm.stop();
+        } else {
+            if(!Config.musicObjects.upbeatBgm.isPlaying){
+                Config.musicObjects.relaxedBgm.stop();
+                Config.musicObjects.upbeatBgm.play();
+            }
+        }
+
         this.dialogArray = [ ];
         this.currentDialogLine = '';
         this.dialogText = game.add.bitmapText(250, game.height - 100, 'font', '', 24);

@@ -52,7 +52,8 @@ Config = {
     //music loops by default
     music: [
         //{key: "MusicKey", filePath: "path/to/audiofile"}
-        {key: "bgm", filePath: "res/sfx/bgm.mp3"}
+        {key: "upbeatBgm", filePath: "res/sfx/bgm.mp3"},
+        {key: "relaxedBgm", filePath: "res/sfx/relaxed-bgm.mp3"}
     ],
     //will be populated by all the music objects after load
     musicObjects: { },
