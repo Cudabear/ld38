@@ -121,11 +121,13 @@
                  "name":"npc",
                  "properties":
                     {
-                     "id":"fakeDoorWarning"
+                     "id":"fakeDoorWarning",
+                     "key":"signpost"
                     },
                  "propertytypes":
                     {
-                     "id":"string"
+                     "id":"string",
+                     "key":"string"
                     },
                  "rotation":0,
                  "type":"npc",

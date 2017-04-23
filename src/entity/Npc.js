@@ -1,12 +1,19 @@
-Npc = function(mainState, hero, x, y, id, key) {
+Npc = function(mainState, hero, x, y, id, key, flipped) {
     this.hero = hero;
     this.mainState = mainState;
     this.id = id;
-    this.key = key || 'TestEnemy';
-    console.log(this.key, key);
+    this.key = key || 'npcs';
     Phaser.Sprite.call(this, game, x, y, this.key);
+    if(this.key === 'npcs'){
+        this.frame = game.rnd.between(0,2);
+    }
+
     game.add.existing(this);
     this.anchor.setTo(0.5);
+
+    if(flipped){
+        this.scale.x = -1;
+    }
 
     this.dialog = NpcDialog[id].dialog;
     this.choice = NpcDialog[id].choice;

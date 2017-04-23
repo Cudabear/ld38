@@ -100,11 +100,13 @@
                  "name":"npc",
                  "properties":
                     {
-                     "id":"room10-chest"
+                     "id":"room10-chest",
+                     "key":"treasurechest"
                     },
                  "propertytypes":
                     {
-                     "id":"string"
+                     "id":"string",
+                     "key":"string"
                     },
                  "rotation":0,
                  "type":"npc",

@@ -21,7 +21,7 @@ MainState.prototype = {
 
         this.camera.flash(0x000000);
 
-        if(this.tilemapKey === 'Room7' || this.tilemapKey === 'Room9'){
+        if(this.tilemapKey === 'initial' || this.tilemapKey === 'Room7' || this.tilemapKey === 'Room9'){
             Config.musicObjects.relaxedBgm.play();
             Config.musicObjects.upbeatBgm.stop();
         } else {
@@ -96,7 +96,8 @@ MainState.prototype = {
 
         this.npcs = game.add.group();
         this.map.objects.Npcs.forEach(function(npcObject){
-            this.npcs.add(new Npc(this, this.hero, npcObject.x, npcObject.y, npcObject.properties.id, npcObject.properties.key));
+            console.log(npcObject.properties);
+            this.npcs.add(new Npc(this, this.hero, npcObject.x, npcObject.y, npcObject.properties.id, npcObject.properties.key, npcObject.properties.flip));
             this.acceptingNewDialog = true;
         }, this);
 

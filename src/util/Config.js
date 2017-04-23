@@ -14,12 +14,15 @@ Config = {
         {key: "bottombar", imagePath: "res/img/sprites/bottom-bar.png"},
         {key: "choicebutton", imagePath: "res/img/sprites/choice-button.png"},
         {key: "bouncer", imagePath: "res/img/sprites/bouncer.png"},
+        {key: "signpost", imagePath: "res/img/sprites/signpost.png"},
+        {key: "treasurechest", imagePath: "res/img/sprites/treasurechest.png"},
     ],
     spritesheets: [
         //{key: "SpriteKey", imagePath: "path/to/image", frameWidth: frameWidth, frameHeight: frameHeight, frameMax: frameMax, margin: margin, spacing: spacing}
         {key: "healthbar", imagePath: "res/img/sprites/health-bar.png", frameWidth: 111, frameHeight: 32},
         {key: "pot", imagePath: "res/img/sprites/pot.png", frameWidth: 32, frameHeight: 32},
-        {key: "bush", imagePath: "res/img/sprites/bush.png", frameWidth: 32, frameHeight: 32}
+        {key: "bush", imagePath: "res/img/sprites/bush.png", frameWidth: 32, frameHeight: 32},
+        {key: "npcs", imagePath: "res/img/sprites/npcs.png", frameWidth: 32, frameHeight: 64}
     ],
     animSprites: [
         //{key: "SpriteKey", imagePath: "path/to/image", jsonPath: "path/to/json"}
@@ -27,7 +30,9 @@ Config = {
         {key: "slash", imagePath: "res/img/sprites/slash.png", jsonPath: "res/img/sprites/slashAnim.json"},
         {key: "pointerArrow", imagePath: "res/img/sprites/pointerArrow.png", jsonPath: "res/img/sprites/pointerArrow.json"},
         {key: "hero", imagePath: "res/img/sprites/hero-set.png", jsonPath: "res/img/sprites/hero-set.json"},
-        {key: "slime", imagePath: "res/img/sprites/slime.png", jsonPath: "res/img/sprites/slime.json"}
+        {key: "melee-slime", imagePath: "res/img/sprites/slime.png", jsonPath: "res/img/sprites/slime.json"},
+        {key: "ranged-slime", imagePath: "res/img/sprites/range-slime.png", jsonPath: "res/img/sprites/slime.json"},
+        {key: "aoe-slime", imagePath: "res/img/sprites/aoe-slime.png", jsonPath: "res/img/sprites/slime.json"}
     ],
     //tilemaps are assumed to be Tiled JSON.
     tileMaps: [

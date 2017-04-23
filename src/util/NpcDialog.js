@@ -35,7 +35,7 @@ NpcDialog = {
 	},
 	'room1': {
 		dialog: ['Oooh boy, another one...',
-			'I\'m getting sick and tired of this job']
+			'Do you think he\'ll actually fight us, or run away like those other weasles?']
 	},
 	'room3': {
 		dialog: ['Haha, foolish adventurer!',
@@ -43,9 +43,9 @@ NpcDialog = {
 			'All the while, I\'ll safely be shooting arrows from way over here!']
 	},
 	'room3-2': {
-		dialog: ['Oh shoot... that was all the arrows I had...',
-			'Too many adventurers coming through at the same time...',
-			'looks like you get off easy, this time!'],
+		dialog: ['Oh shoot... running really low on slime...',
+			'Too many adventurers coming through lately...',
+			'looks like you get off easy, adventurer!!'],
 		callback: function(mainState) {
 			mainState.enemies.getAt(0).disableAI = true;
 			game.physics.arcade.moveToXY(mainState.enemies.getAt(0), 194, 68, 140);
@@ -65,7 +65,9 @@ NpcDialog = {
 		dialog: ['You chose the wrong door!'],
 		callback: function(mainState){
 			mainState.hero.getHit();
-		}
+			NpcDialog['fakeDoor'].dialog = ['Did you really just do that again?'];
+		},
+		preserve: true
 	},
 	'fakeDoorWarning': {
 		dialog: ['one of these doors is the correct one',
@@ -244,8 +246,9 @@ NpcDialog = {
 			'You take the cup, estimating that it has to be worth at least $5.00.  And you\'re certainly not leaving empty handed.'],
 		callback: function(mainState) {
 			mainState.coinCount += 5;
-			mainState.coinCounter.setText(mainState.coinCount.toFixed(2));
+			mainState.coinCounter.setText("$"+mainState.coinCount.toFixed(2));
 			Config.sfxObjects.coin.play();
-		}
+		},
+		important: true
 	}
 }

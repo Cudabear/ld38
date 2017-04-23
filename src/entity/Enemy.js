@@ -8,19 +8,14 @@ Enemy = function(type, x, y, mainState, target, enemies, map, collisionMap, dial
     this.dialog = dialog;
     this.mainState = mainState;
     if(this.mobType === 'melee') {
-        Phaser.Sprite.call(this, game, x, y, 'slime');
+        Phaser.Sprite.call(this, game, x, y, 'melee-slime');
         this.attackDistance = this.constants.attackDistanceMelee;
         this.attackWindupTime = this.constants.attackWindupTimeMelee;
         this.attackCooldownTime = this.constants.cooldownTimeMelee;
 
-        this.animations.add('walk-up', [0,1], 8, true);
-        this.animations.add('walk-down', [2,3], 8, true);
-        this.animations.add('walk-left', [4,5], 8, true);
-        this.animations.add('walk-right', [6,7], 8, true);
-
         this.slashEffect = new SlashEffect(this);
     } else if(this.mobType === 'ranged'){
-        Phaser.Sprite.call(this, game, x, y, 'TestEnemy');
+        Phaser.Sprite.call(this, game, x, y, 'ranged-slime');
 
         this.attackDistance = this.constants.attackDistanceRanged;
         this.attackWindupTime = this.constants.attackWindupTimeRanged;
@@ -33,7 +28,7 @@ Enemy = function(type, x, y, mainState, target, enemies, map, collisionMap, dial
         this.weapon.fireRate = 10;
         this.weapon.trackSprite(this, 0, 0, false);  
     } else if(this.mobType === 'aoe'){
-        Phaser.Sprite.call(this, game, x, y, 'TestEnemy');
+        Phaser.Sprite.call(this, game, x, y, 'aoe-slime');
 
         this.attackDistance = this.constants.attackDistanceAOE;
         this.attackWindupTime = this.constants.attackWindupTimeAOE;
@@ -45,6 +40,11 @@ Enemy = function(type, x, y, mainState, target, enemies, map, collisionMap, dial
         game.physics.arcade.enable(this.bomb);
         this.bomb.exists = false;
     }
+
+    this.animations.add('walk-up', [0,1], 8, true);
+    this.animations.add('walk-down', [2,3], 8, true);
+    this.animations.add('walk-left', [4,5], 8, true);
+    this.animations.add('walk-right', [6,7], 8, true);
 
     if(this.dialog){
         this.speechbubble = game.add.sprite(x+32, y-32, 'speechbubble');
@@ -112,6 +112,7 @@ Enemy.prototype.update = function() {
                     this.attemptAttack(sightBlockingTiles);
                 } 
             } else{
+                this.animations.play('walk-down');
                 this.attemptAttack(false);
             }
 
@@ -147,16 +148,14 @@ Enemy.prototype.update = function() {
         this.body.velocity.setTo(0);
     }
 
-    if(this.mobType === 'melee'){
-        if(this.body.velocity.x < -1){
-            this.animations.play('walk-left');
-        }else if(this.body.velocity.x > 1){
-            this.animations.play('walk-right');
-        }else if(this.body.velocity.y < -1){
-            this.animations.play('walk-up');
-        }else if(this.body.velocity.y > 1){
-            this.animations.play('walk-down');
-        }
+    if(this.body.velocity.x < -1){
+        this.animations.play('walk-left');
+    }else if(this.body.velocity.x > 1){
+        this.animations.play('walk-right');
+    }else if(this.body.velocity.y < -1){
+        this.animations.play('walk-up');
+    }else if(this.body.velocity.y > 1){
+        this.animations.play('walk-down');
     }
 }
 
