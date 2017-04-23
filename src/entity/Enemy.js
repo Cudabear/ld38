@@ -69,8 +69,8 @@ Enemy.prototype.constructor = Enemy;
 Enemy.prototype.constants = { };
 Enemy.prototype.constants.speed = 75;
 Enemy.prototype.constants.acceleration = 25;
-Enemy.prototype.constants.stunTime = 25;
-Enemy.prototype.constants.knockbackForce = 125;
+Enemy.prototype.constants.stunTime = 12;
+Enemy.prototype.constants.knockbackForce = 250;
 Enemy.prototype.constants.attackWindupTimeMelee = 40;
 Enemy.prototype.constants.attackWindupTimeRanged = 20;
 Enemy.prototype.constants.attackWindupTimeAOE = 80;
@@ -85,6 +85,7 @@ Enemy.prototype.constants.bombFlySpeed = 150;
 Enemy.prototype.constants.bombExplosionTime = 100;
 Enemy.prototype.constants.bombExplosionRadius = 100;
 Enemy.prototype.constants.bombKnockback = 250;
+Enemy.prototype.constants.bombDamage = 5;
 Enemy.prototype.maxHealth = 5;
 Enemy.prototype.health = Enemy.prototype.maxHealth;
 
@@ -162,11 +163,11 @@ Enemy.prototype.traversePath = function() {
     }
 }
 
-Enemy.prototype.getHit = function(attacker, knockback) {
+Enemy.prototype.getHit = function(attacker, knockback, damage) {
     this.stunnedCounter = this.constants.stunTime;
     this.body.velocity.x = (knockback || this.constants.knockbackForce)*Math.cos(game.physics.arcade.angleBetween(attacker, this));
     this.body.velocity.y = (knockback || this.constants.knockbackForce)*Math.sin(game.physics.arcade.angleBetween(attacker, this));
-    this.damage(1);
+    this.damage(damage || 1);
     this.attackWindupCounter = 0;
     this.tint = 0xFF0000;
     Config.sfxObjects.hit.play();
@@ -263,12 +264,12 @@ Enemy.prototype.getExploaded = function(bomb, force){
 Enemy.prototype.exploadBomb = function() {
     this.enemies.forEach(function(enemy){
         if(game.physics.arcade.distanceBetween(this.bomb, enemy) <= this.constants.bombExplosionRadius){
-            enemy.getExploaded(this.bomb, this.constants.bombKnockback);
+            enemy.getExploaded(this.bomb, this.constants.bombKnockback, this.constants.bombDamage);
         }
     }, this);
 
     if(game.physics.arcade.distanceBetween(this.bomb, this.target) <= this.constants.bombExplosionRadius){
-        this.target.getExploaded(this.bomb, this.constants.bombKnockback);
+        this.target.getExploaded(this.bomb, this.constants.bombKnockback, this.constants.bombDamage);
     }
 
     this.bomb.exists = false;

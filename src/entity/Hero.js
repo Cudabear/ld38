@@ -49,6 +49,7 @@ Hero = function(mainState, spawnSide) {
 
     this.stunnedCounter = 0;
 
+    this.maxHealth = Hero.prototype.constants.maxHealth;
     this.healthBarEmpty = game.add.sprite(15, game.height - 39, 'healthbar', 1);
     this.healthBarFull = game.add.sprite(15, game.height - 39, 'healthbar', 0);
     this.updateHealthbarCrop();
@@ -59,9 +60,9 @@ Hero.prototype = Object.create(Phaser.Sprite.prototype);
 Hero.prototype.constructor = Hero;
 Hero.prototype.constants = { };
 Hero.prototype.constants.speed = 200;
-Hero.prototype.constants.maxHealth = 50;
+Hero.prototype.constants.maxHealth = 15;
 Hero.prototype.constants.invulnTime = 50;
-Hero.prototype.constants.healthPotionHealAmount = 10;
+Hero.prototype.constants.healthPotionHealAmount = 3;
 Hero.prototype.health = Hero.prototype.constants.maxHealth;
 
 Hero.prototype.update = function() {
@@ -179,12 +180,17 @@ Hero.prototype.onSuccessfulSlash = function(me, enemy){
     }
 }
 
-Hero.prototype.getHit = function(attacker) {
+Hero.prototype.getHit = function(attacker, damage) {
     if(this.invulnTimeCounter === 0){
-        this.damage(1);
+        this.damage(damage || 1);
         this.updateHealthbarCrop();
         this.invulnTimeCounter = this.constants.invulnTime;
         Config.sfxObjects.hit.play();
+    }
+
+    if(!this.alive){
+        this.mainState.acceptingNewDialog = true;
+        this.mainState.setDialog(NpcDialog['dead'].dialog, NpcDialog['dead'].choice);
     }
 }
 

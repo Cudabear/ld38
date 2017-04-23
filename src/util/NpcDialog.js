@@ -11,6 +11,28 @@ NpcDialog = {
 			'Good luck on your quest!' ],
 		important: true
 	},
+	'dead': {
+		dialog: ['Oh, it seems you have succumbed to the elements of the dungeon.  Somehow, even though there\'s hardly anything left here.'],
+		choice: {
+			yes: "Give me another go!",
+			yesCallback: function() {
+				game.camera.onFadeComplete.addOnce(function(){
+		            game.state.restart();
+		        });
+		        game.camera.fade();
+			},
+			no: "I\'m done, take me out of here!",
+			noCallback: function(){
+				game.camera.onFadeComplete.addOnce(function(){
+		            game.state.start('SplashState');
+		        });
+		        game.camera.fade();
+			}
+		}
+	},
+	'lockedoor': {
+		dialog: ['It\'s locked.  The monsters must have something to do with it.'],
+	},
 	'room1': {
 		dialog: ['Oooh boy, another one...',
 			'I\'m getting sick and tired of this job']

@@ -296,80 +296,85 @@ MainState.prototype = {
     },
     
     changeRoom(hero, door){
-        door.kill();
-        game.camera.onFadeComplete.addOnce(function(){
-            game.state.start(door.toMap);
-        });
-
-        if(door.spawnPoint){
-            var tempArray = door.spawnPoint.split(', ');
-            game.state.states[door.toMap].spawnSide = {x: parseInt(tempArray[0]), y: parseInt(tempArray[1])};
-        }
-
-        game.camera.fade();
-        UserData.heroData = this.hero.getVitals();
-        UserData.coinCount = this.coinCount;
-
-        var levelData = {
-            enemies: [ ],
-            coins: [ ],
-            potions: [ ],
-            triggers: [ ],
-            destructables: [ ]
-        };
-
-        this.enemies.forEach(function(enemy) {
-            if(enemy.alive){
-                levelData.enemies.push({
-                    x: enemy.x,
-                    y: enemy.y,
-                    mobType: enemy.mobType,
-                    dialog: enemy.dialog,
-                    health: enemy.health,
-                    range: enemy.attackDistance
-                });
-            }
-        }, this);
-
-        this.coins.forEach(function(coin) {
-            if(coin.alive){
-                levelData.coins.push({
-                    x: coin.x,
-                    y: coin.y   
-                });
-            }
-        }, this);
-
-        this.potions.forEach(function(potion){
-            if(potion.alive){
-                levelData.potions.push({
-                    x: potion.x,
-                    y: potion.y
-                });
-            }
-        }, this);
-
-        this.triggers.forEach(function(trigger){
-            if(trigger.exists){
-                levelData.triggers.push({
-                    x: trigger.x,
-                    y: trigger.y,
-                    dialog: trigger.dialog,
-                    callback: trigger.callback
-                });
-            }
-        }, this);
-
-        this.destructables.forEach(function(destructable){
-            levelData.destructables.push({
-                x: destructable.x,
-                y: destructable.y,
-                key: destructable.key,
-                isAlive: destructable.isAlive
+        if(!this.enemies.getFirstAlive()){
+            door.kill();
+            game.camera.onFadeComplete.addOnce(function(){
+                game.state.start(door.toMap);
             });
-        });
 
-        UserData.levelData[this.tilemapKey] = levelData;
+            if(door.spawnPoint){
+                var tempArray = door.spawnPoint.split(', ');
+                game.state.states[door.toMap].spawnSide = {x: parseInt(tempArray[0]), y: parseInt(tempArray[1])};
+            }
+
+            game.camera.fade();
+            UserData.heroData = this.hero.getVitals();
+            UserData.coinCount = this.coinCount;
+
+            var levelData = {
+                enemies: [ ],
+                coins: [ ],
+                potions: [ ],
+                triggers: [ ],
+                destructables: [ ]
+            };
+
+            this.enemies.forEach(function(enemy) {
+                if(enemy.alive){
+                    levelData.enemies.push({
+                        x: enemy.x,
+                        y: enemy.y,
+                        mobType: enemy.mobType,
+                        dialog: enemy.dialog,
+                        health: enemy.health,
+                        range: enemy.attackDistance
+                    });
+                }
+            }, this);
+
+            this.coins.forEach(function(coin) {
+                if(coin.alive){
+                    levelData.coins.push({
+                        x: coin.x,
+                        y: coin.y   
+                    });
+                }
+            }, this);
+
+            this.potions.forEach(function(potion){
+                if(potion.alive){
+                    levelData.potions.push({
+                        x: potion.x,
+                        y: potion.y
+                    });
+                }
+            }, this);
+
+            this.triggers.forEach(function(trigger){
+                if(trigger.exists){
+                    levelData.triggers.push({
+                        x: trigger.x,
+                        y: trigger.y,
+                        dialog: trigger.dialog,
+                        callback: trigger.callback
+                    });
+                }
+            }, this);
+
+            this.destructables.forEach(function(destructable){
+                levelData.destructables.push({
+                    x: destructable.x,
+                    y: destructable.y,
+                    key: destructable.key,
+                    isAlive: destructable.isAlive
+                });
+            });
+
+            UserData.levelData[this.tilemapKey] = levelData;
+        } else {
+            this.acceptingNewDialog = true;
+            this.setDialog(NpcDialog['lockedoor'].dialog);
+        }
     },
 
     collectCoin(hero, coin){
