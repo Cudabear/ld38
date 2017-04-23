@@ -31,10 +31,12 @@ MainState.prototype = {
             }
         }
 
+        this.bottomBar = game.add.image(0, game.height - 128, 'bottombar');
+
         this.dialogArray = [ ];
         this.currentDialogLine = '';
-        this.dialogText = game.add.bitmapText(250, game.height - 100, 'font', '', 24);
-        this.dialogText.maxWidth = game.width - 400;
+        this.dialogText = game.add.bitmapText(148, game.height - 120, 'font', '', 24);
+        this.dialogText.maxWidth = game.width - 200;
 
         this.map = game.add.tilemap(this.tilemapKey);
         this.map.addTilesetImage('TileSet');
@@ -124,8 +126,7 @@ MainState.prototype = {
         this.mapDetail = this.map.createLayer('Detail');
 
         this.coinCount = UserData.coinCount === undefined ? 0 : UserData.coinCount;
-        this.coinCounter = game.add.bitmapText(game.width - 150, game.height - 100, 'font', '$'+this.coinCount.toFixed(2), 32);
-        this.coinCounter.anchor.setTo(0.5);
+        this.coinCounter = game.add.bitmapText(15, game.height - 80, 'font', '$'+this.coinCount.toFixed(2), 32);
 
         this.choiceLine1 = game.add.bitmapText(game.world.centerX, game.height - 100, 'font', '', 24);
         this.choiceLine1.anchor.setTo(0.5);

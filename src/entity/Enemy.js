@@ -83,7 +83,7 @@ Enemy.prototype.constants.attackDistanceAOE = 100;
 Enemy.prototype.constants.arrowFlySpeed = 300;
 Enemy.prototype.constants.bombFlySpeed = 150;
 Enemy.prototype.constants.bombExplosionTime = 100;
-Enemy.prototype.constants.bombExplosionRadius = 50;
+Enemy.prototype.constants.bombExplosionRadius = 100;
 Enemy.prototype.constants.bombKnockback = 250;
 Enemy.prototype.maxHealth = 5;
 Enemy.prototype.health = Enemy.prototype.maxHealth;
@@ -276,6 +276,7 @@ Enemy.prototype.exploadBomb = function() {
 
     game.camera.flash(0xFFFFFF, 150, false, 0.5);
     game.camera.shake(0.025, 100);
+    Config.sfxObjects.explosion.play();
 }
 
 

@@ -35,6 +35,7 @@ NpcDialog = {
 			    mainState.map.putTile(null, 3, 11, mainState.mapDetail);
 		        game.camera.flash(0xFFFFFF, 150, false, 0.5);
     			game.camera.shake(0.025, 100);
+    			Config.sfxObjects.hit.play();
 		    }, this);
 		}
 	},
@@ -71,6 +72,7 @@ NpcDialog = {
 			game.time.events.add(5000, function() {
 			    mainState.triggerTrigger(mainState.hero, {dialog: 'room6-help'})
 		    }, this);
+		    Config.sfxObjects.explosion.play();
 		}
 	},
 	'room6-help': {
@@ -93,6 +95,7 @@ NpcDialog = {
 			mainState.enemies.forEach(function(enemy){
 				enemy.kill();
 			}, mainState);
+			Config.sfxObjects.hit.play();
 
 			var temp = new Npc(mainState, mainState.hero, 436, 168, 'room6-npc', true);
 		}
