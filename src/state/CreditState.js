@@ -27,11 +27,19 @@ CreditState.prototype = {
         this.messageText3.anchor.setTo(0.5);
         this.messageText3.alpha = 0;
 
-        this.messageText4 = game.add.bitmapText(game.world.centerX - 125, game.world.centerY + 100, 'font', "Created with PhaserJS CE", 32);
+        this.messageText4 = game.add.bitmapText(game.world.centerX - 125, game.world.centerY + 80, 'font', "Created with PhaserJS CE", 32);
         this.messageText4.anchor.setTo(0.5);
         this.messageText4.alpha = 0;
 
-        this.image = game.add.image(game.world.centerX + 125, game.world.centerY + 100, 'phaser');
+        this.messageText6 = game.add.bitmapText(game.world.centerX, game.world.centerY + 200, 'font', "Music Credits: Opening Night and The Rise of Heroes by Shane Ivers https://www.silvermansound.com", 32);
+        this.messageText6.anchor.setTo(0.5);
+        this.messageText6.inputEnabled = true;
+        this.messageText6.events.onInputDown.add(function(){
+            window.open('https://www.silvermansound.com');
+        });
+        this.messageText6.alpha = 0;
+
+        this.image = game.add.image(game.world.centerX + 125, game.world.centerY + 80, 'phaser');
         this.image.anchor.setTo(0.5);
         this.image.width = 150;
         this.image.height = 150;
@@ -57,6 +65,7 @@ CreditState.prototype = {
         game.time.events.add(9500, function() {
             this.messageText3.alpha = 1;
             this.messageText4.alpha = 1;
+            this.messageText6.alpha = 1;
             this.image.alpha = 1;
         }, this);
         game.time.events.add(12000, function() {
