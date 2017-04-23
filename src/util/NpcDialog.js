@@ -115,9 +115,7 @@ NpcDialog = {
 			'It\'s my first time, how about you?']
 	},
 	'room7-bouncer': {
-		dialog: ['There\'s been a huge influx of adventurers lately',
-			'so I was hired to keep the peace and make sure everyone gets',
-			'a fair shot at fighting the boss.  Are you ready to wait in line?'],
+		dialog: ['There\'s been a huge influx of adventurers lately, so I was hired to keep the peace and make sure everyone gets a fair shot at fighting the boss.  Are you ready to wait in line?'],
 		choice: {
 			yes: 'I\'ll wait as long as it takes.',
 			yesCallback: function(mainState) {

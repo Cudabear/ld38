@@ -12,6 +12,7 @@ Config = {
         {key: "coin", imagePath: "res/img/sprites/coin.png"},
         {key: "healthpotion", imagePath: "res/img/sprites/healthpotion.png"},
         {key: "bottombar", imagePath: "res/img/sprites/bottom-bar.png"},
+        {key: "choicebutton", imagePath: "res/img/sprites/choice-button.png"},
     ],
     spritesheets: [
         //{key: "SpriteKey", imagePath: "path/to/image", frameWidth: frameWidth, frameHeight: frameHeight, frameMax: frameMax, margin: margin, spacing: spacing}

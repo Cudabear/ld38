@@ -127,27 +127,33 @@ MainState.prototype = {
 
         this.coinCount = UserData.coinCount === undefined ? 0 : UserData.coinCount;
         this.coinCounter = game.add.bitmapText(15, game.height - 80, 'font', '$'+this.coinCount.toFixed(2), 32);
-
-        this.choiceLine1 = game.add.bitmapText(game.world.centerX, game.height - 100, 'font', '', 24);
-        this.choiceLine1.anchor.setTo(0.5);
-        this.choiceLine1.inputEnabled = true;
-        this.choiceLine1.events.onInputDown.add(function(){
+ 
+        this.choiceButton1 = game.add.image(game.world.centerX - 180, game.height - 119, 'choicebutton');
+        this.choiceButton1.inputEnabled = true;
+        this.choiceButton1.events.onInputDown.add(function(){
             this.isDialog = false;
             this.choice.yesCallback(this);
             this.choice = null;
             this.choiceLine1.setText('');
             this.choiceLine2.setText('');
+            this.choiceButton1.exists = false;
+            this.choiceButton2.exists = false;
         }, this);
-        this.choiceLine2 = game.add.bitmapText(game.world.centerX, game.height - 50, 'font', '', 24);
-        this.choiceLine2.anchor.setTo(0.5);
-        this.choiceLine2.inputEnabled = true;
-        this.choiceLine2.events.onInputDown.add(function(){
+        this.choiceButton1.exists = false;
+        this.choiceLine1 = game.add.bitmapText(game.world.centerX - 175, game.height - 114, 'font', '', 24);
+        this.choiceButton2 = game.add.image(game.world.centerX - 180, game.height - 63, 'choicebutton');
+        this.choiceButton2.inputEnabled = true;
+        this.choiceButton2.events.onInputDown.add(function(){
             this.isDialog = false;
             this.choice.noCallback(this);
             this.choice = null;
             this.choiceLine1.setText('');
             this.choiceLine2.setText('');
+            this.choiceButton1.exists = false;
+            this.choiceButton2.exists = false;
         }, this);
+        this.choiceLine2 = game.add.bitmapText(game.world.centerX - 175, game.height - 58, 'font', '', 24);
+        this.choiceButton2.exists = false;
     },
 
     update: function() {
@@ -249,14 +255,20 @@ MainState.prototype = {
             if(!this.choice){
                 this.isDialog = false;
             } else{
-                this.choiceLine1.setText(this.choice.yes);
-                this.choiceLine2.setText(this.choice.no);
+                this.makeChoice();
             }
 
             if(this.triggerCallback){
                 this.triggerCallback(this);
             }
         }
+    },
+
+    makeChoice(){
+        this.choiceLine1.setText(this.choice.yes);
+        this.choiceLine2.setText(this.choice.no);
+        this.choiceButton1.exists = true;
+        this.choiceButton2.exists = true;
     },
     
     changeRoom(hero, door){
