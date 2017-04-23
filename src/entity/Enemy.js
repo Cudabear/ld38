@@ -181,7 +181,7 @@ Enemy.prototype.getHit = function(attacker, knockback, damage) {
             coin.body.velocity.setTo(game.rnd.between(-30, 30), game.rnd.between(-30, 30));
         }
 
-        if(game.rnd.between(0, 10)){
+        if(!game.rnd.between(0, 5)){
             var potion = this.mainState.potions.create(this.x, this.y, 'healthpotion');
 
             potion.body.velocity.setTo(game.rnd.between(-30, 30), game.rnd.between(-30, 30));   

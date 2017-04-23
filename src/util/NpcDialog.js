@@ -186,6 +186,7 @@ NpcDialog = {
 				mainState.npcs.getAt(0).dialog = NpcDialog['room8-boss-post-choice'].dialog;
 				mainState.npcs.getAt(0).choice = null;
 				mainState.choice = null;
+				UserData.choice = 'loot';
 			},
 			no: 'I have to earn it, you vile beast!',
 			noCallback: function(mainState){
@@ -193,6 +194,7 @@ NpcDialog = {
 				mainState.npcs.getAt(0).dialog = NpcDialog['room8-boss-post-choice'].dialog;
 				mainState.npcs.getAt(0).choice = null;
 				mainState.choice = null;
+				UserData.choice = 'leave';
 			}
 		}
 	},

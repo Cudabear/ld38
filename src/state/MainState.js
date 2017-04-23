@@ -35,8 +35,8 @@ MainState.prototype = {
 
         this.dialogArray = [ ];
         this.currentDialogLine = '';
-        this.dialogText = game.add.bitmapText(148, game.height - 120, 'font', '', 24);
-        this.dialogText.maxWidth = game.width - 200;
+        this.dialogText = game.add.bitmapText(153, game.height - 115, 'font', '', 32);
+        this.dialogText.maxWidth = game.width - 190;
 
         this.map = game.add.tilemap(this.tilemapKey);
         this.map.addTilesetImage('TileSet');
@@ -152,7 +152,7 @@ MainState.prototype = {
             this.choiceButton2.exists = false;
         }, this);
         this.choiceButton1.exists = false;
-        this.choiceLine1 = game.add.bitmapText(game.world.centerX - 175, game.height - 114, 'font', '', 24);
+        this.choiceLine1 = game.add.bitmapText(game.world.centerX - 175, game.height - 114, 'font', '', 32);
         this.choiceButton2 = game.add.image(game.world.centerX - 180, game.height - 63, 'choicebutton');
         this.choiceButton2.inputEnabled = true;
         this.choiceButton2.events.onInputDown.add(function(){
@@ -164,7 +164,7 @@ MainState.prototype = {
             this.choiceButton1.exists = false;
             this.choiceButton2.exists = false;
         }, this);
-        this.choiceLine2 = game.add.bitmapText(game.world.centerX - 175, game.height - 58, 'font', '', 24);
+        this.choiceLine2 = game.add.bitmapText(game.world.centerX - 175, game.height - 58, 'font', '', 32);
         this.choiceButton2.exists = false;
     },
 

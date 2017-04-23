@@ -8,7 +8,7 @@ SelectHeroState.prototype = {
 
 		Config.musicObjects.upbeatBgm.play('', 0, 1, true);
 
-		this.hero = game.add.sprite(game.world.centerX - 120, game.world.centerY, 'TestGuy');
+		this.hero = game.add.sprite(game.world.centerX - 120, game.world.centerY, 'hero');
 		this.hero.scale.setTo(3);
 		this.hero.anchor.setTo(0.5);
 
@@ -46,6 +46,7 @@ SelectHeroState.prototype = {
 			this.otherGuyFadeTween.start();
 			this.pointerFadeTween.start();
 			Config.sfxObjects.hit.play();
+			this.instructionText.setText('use A to continue');
 			this.statsText.setText('Stats:\n\nMight: 3\nSpeed: 5\nSanity: 10\nKnowledge:1');
 		}, this);
 

@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	game.state.add('room8', new MainState('Room8', 'south'));
 	game.state.add('room9', new MainState('Room9', {x: 883, y: 132}));
 	game.state.add('room10', new MainState('Room10', 'south'));
+	game.state.add('credits', new CreditState());
 
     game.state.start('BootupState');
 });

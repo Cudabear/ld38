@@ -1,15 +1,15 @@
 {"frames":[
 
 {
-	"filename": "stand-face-up",
-	"frame": {"x": 0, "y": 64, "w":32, "h":64},
+	"filename": "stand-face-down",
+	"frame": {"x": 0, "y": 0, "w":32, "h":64},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x": -2, "y": -30, "w":32, "h":64},
 	"sourceSize": {"w":28, "h":32}
 },{
-	"filename": "stand-face-down",
-	"frame": {"x": 0, "y": 0, "w":32, "h":64},
+	"filename": "stand-face-up",
+	"frame": {"x": 0, "y": 64, "w":32, "h":64},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x": -2, "y": -30, "w":32, "h":64},

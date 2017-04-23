@@ -27,8 +27,8 @@ Hero = function(mainState, spawnSide) {
 
     Phaser.Sprite.call(this, game, spawnX, spawnY, 'hero');
     this.slashEffect = new SlashEffect(this);
-    this.animations.add('stand-face-up', [0]);
-    this.animations.add('stand-face-down', [1]);
+    this.animations.add('stand-face-up', [1]);
+    this.animations.add('stand-face-down', [0]);
     this.animations.add('stand-face-left', [2]);
     this.animations.add('stand-face-right', [3]);
     this.animations.add('walk-face-up', [4,5,6,7], 6);
