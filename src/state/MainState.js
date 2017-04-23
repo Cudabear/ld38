@@ -100,6 +100,17 @@ MainState.prototype = {
             this.acceptingNewDialog = true;
         }, this);
 
+        this.destructables = game.add.group();
+        if(!UserData.levelData[this.tilemapKey]){
+            this.map.objects.Destructables.forEach(function(destructable){
+                this.destructables.add(new Destructable(this, destructable.type, destructable.x, destructable.y, true));
+            }, this);
+        } else {
+            UserData.levelData[this.tilemapKey].destructables.forEach(function(destructable){
+                this.destructables.add(new Destructable(this, destructable.key, destructable.x, destructable.y, destructable.isAlive));
+            }, this);
+        }
+
 
         this.doors = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
         this.map.createFromObjects('Doors', 'door', 'arrow', 0, true, false, this.doors, Phaser.Sprite, false);
@@ -193,6 +204,16 @@ MainState.prototype = {
 
             potion.body.velocity.x *= 0.985;
             potion.body.velocity.y *= 0.985;
+        }, this);
+
+        this.destructables.forEach(function(destructable){
+            if(destructable.key === 'pot' && destructable.isAlive){
+                game.physics.arcade.collide(this.hero, destructable);
+            }
+
+            if(this.hero.slashEffect.exists){
+                game.physics.arcade.overlap(this.hero.slashEffect, destructable, destructable.onCollide, null, destructable);
+            }
         }, this);
 
         game.physics.arcade.collide(this.hero, this.mapCollision);
@@ -293,7 +314,8 @@ MainState.prototype = {
             enemies: [ ],
             coins: [ ],
             potions: [ ],
-            triggers: [ ]
+            triggers: [ ],
+            destructables: [ ]
         };
 
         this.enemies.forEach(function(enemy) {
@@ -337,6 +359,15 @@ MainState.prototype = {
                 });
             }
         }, this);
+
+        this.destructables.forEach(function(destructable){
+            levelData.destructables.push({
+                x: destructable.x,
+                y: destructable.y,
+                key: destructable.key,
+                isAlive: destructable.isAlive
+            });
+        });
 
         UserData.levelData[this.tilemapKey] = levelData;
     },

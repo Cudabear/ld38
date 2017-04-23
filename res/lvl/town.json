@@ -119,8 +119,42 @@
          "width":32,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":20,
+         "name":"Destructables",
+         "objects":[
+                {
+                 "height":0,
+                 "id":7,
+                 "name":"destructable",
+                 "rotation":0,
+                 "type":"pot",
+                 "visible":true,
+                 "width":0,
+                 "x":331,
+                 "y":277
+                }, 
+                {
+                 "height":0,
+                 "id":8,
+                 "name":"destructable",
+                 "rotation":0,
+                 "type":"bush",
+                 "visible":true,
+                 "width":0,
+                 "x":405,
+                 "y":277
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":32,
+         "x":0,
+         "y":0
         }],
- "nextobjectid":6,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

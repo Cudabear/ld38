@@ -31,10 +31,10 @@ Hero = function(mainState, spawnSide) {
     this.animations.add('stand-face-down', [1]);
     this.animations.add('stand-face-left', [2]);
     this.animations.add('stand-face-right', [3]);
-    this.animations.add('walk-face-up', [0]);
-    this.animations.add('walk-face-down', [1]);
-    this.animations.add('walk-face-left', [2]);
-    this.animations.add('walk-face-right', [3]);
+    this.animations.add('walk-face-up', [4,5,6,7], 6);
+    this.animations.add('walk-face-down', [8,9,10,11], 6);
+    this.animations.add('walk-face-left', [16,17,18,19], 6);
+    this.animations.add('walk-face-right', [12,13,14,15], 6);
 
     game.add.existing(this);
     this.anchor.setTo(0.5);

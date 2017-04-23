@@ -17,7 +17,9 @@ Config = {
     ],
     spritesheets: [
         //{key: "SpriteKey", imagePath: "path/to/image", frameWidth: frameWidth, frameHeight: frameHeight, frameMax: frameMax, margin: margin, spacing: spacing}
-        {key: "healthbar", imagePath: "res/img/sprites/health-bar.png", frameWidth: 111, frameHeight: 32}
+        {key: "healthbar", imagePath: "res/img/sprites/health-bar.png", frameWidth: 111, frameHeight: 32},
+        {key: "pot", imagePath: "res/img/sprites/pot.png", frameWidth: 32, frameHeight: 32},
+        {key: "bush", imagePath: "res/img/sprites/bush.png", frameWidth: 32, frameHeight: 32}
     ],
     animSprites: [
         //{key: "SpriteKey", imagePath: "path/to/image", jsonPath: "path/to/json"}
