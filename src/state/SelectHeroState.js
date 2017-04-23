@@ -6,7 +6,7 @@ SelectHeroState.prototype = {
 	create: function() {
 		console.log('create select hero');
 
-		Config.musicObjects.bgm.play('', 0, 1, true);
+		Config.musicObjects.upbeatBgm.play('', 0, 1, true);
 
 		this.hero = game.add.sprite(game.world.centerX - 120, game.world.centerY, 'TestGuy');
 		this.hero.scale.setTo(3);
