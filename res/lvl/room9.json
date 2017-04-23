@@ -100,11 +100,13 @@
                  "name":"npc",
                  "properties":
                     {
-                     "id":"room9-bouncer"
+                     "id":"room9-bouncer",
+                     "key":"bouncer"
                     },
                  "propertytypes":
                     {
-                     "id":"string"
+                     "id":"string",
+                     "key":"string"
                     },
                  "rotation":0,
                  "type":"npc",

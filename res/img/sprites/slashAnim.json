@@ -2,32 +2,32 @@
 
 {
 	"filename": "slash01",
-	"frame": {"x": 0, "y": 0, "w":20, "h":10},
+	"frame": {"x": 0, "y": 0, "w":32, "h":24},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x": 0, "y": 0, "w":20, "h":10},
-	"sourceSize": {"w":20, "h":10}
+	"spriteSourceSize": {"x": 0, "y": 0, "w":32, "h":24},
+	"sourceSize": {"w":32, "h":24}
 },{
 	"filename": "slash02",
-	"frame": {"x": 20, "y": 0, "w":20, "h":10},
+	"frame": {"x": 32, "y": 0, "w":32, "h":24},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x": 0, "y": 0, "w":20, "h":10},
-	"sourceSize": {"w":20, "h":10}
+	"spriteSourceSize": {"x": 0, "y": 0, "w":32, "h":24},
+	"sourceSize": {"w":32, "h":24}
 },{
 	"filename": "slash03",
-	"frame": {"x": 40, "y": 0, "w":20, "h":10},
+	"frame": {"x": 64, "y": 0, "w":32, "h":24},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x": 0, "y": 0, "w":20, "h":10},
-	"sourceSize": {"w":20, "h":10}
+	"spriteSourceSize": {"x": 0, "y": 0, "w":32, "h":24},
+	"sourceSize": {"w":32, "h":24}
 },{
 	"filename": "slash04",
-	"frame": {"x": 60, "y": 0, "w":20, "h":10},
+	"frame": {"x": 96, "y": 0, "w":32, "h":24},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x": 0, "y": 0, "w":20, "h":10},
-	"sourceSize": {"w":20, "h":10}
+	"spriteSourceSize": {"x": 0, "y": 0, "w":32, "h":24},
+	"sourceSize": {"w":32, "h":24}
 }
 
 ]}

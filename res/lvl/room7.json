@@ -157,11 +157,13 @@
                  "name":"npc",
                  "properties":
                     {
-                     "id":"room7-bouncer"
+                     "id":"room7-bouncer",
+                     "key":"bouncer"
                     },
                  "propertytypes":
                     {
-                     "id":"string"
+                     "id":"string",
+                     "key":"string"
                     },
                  "rotation":0,
                  "type":"npc",
@@ -588,7 +590,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":162,
+ "nextobjectid":163,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

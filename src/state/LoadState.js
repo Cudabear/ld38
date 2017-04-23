@@ -53,7 +53,7 @@ LoadState.prototype = {
         }, this);
 
         console.log('kicking off the game');
-        game.state.start('room7');
+        game.state.start('initial');
     },
 
     update: function(){

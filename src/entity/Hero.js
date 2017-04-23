@@ -5,6 +5,7 @@ Hero = function(mainState, spawnSide) {
     var spawnX = 0;
     var spawnY = 0;
 
+
     if(spawnSide.x && spawnSide.y){
         spawnX = spawnSide.x;
         spawnY = spawnSide.y;
@@ -24,11 +25,19 @@ Hero = function(mainState, spawnSide) {
         }
     }
 
-    Phaser.Sprite.call(this, game, spawnX, spawnY, 'TestGuy');
+    Phaser.Sprite.call(this, game, spawnX, spawnY, 'hero');
+    this.slashEffect = new SlashEffect(this);
+    this.animations.add('stand-face-up', [0]);
+    this.animations.add('stand-face-down', [1]);
+    this.animations.add('stand-face-left', [2]);
+    this.animations.add('stand-face-right', [3]);
+    this.animations.add('walk-face-up', [0]);
+    this.animations.add('walk-face-down', [1]);
+    this.animations.add('walk-face-left', [2]);
+    this.animations.add('walk-face-right', [3]);
+
     game.add.existing(this);
     this.anchor.setTo(0.5);
-
-    this.slashEffect = new SlashEffect(this);
 
     this.facing = 'north';
     this.invulnTimeCounter = 0;
@@ -43,13 +52,13 @@ Hero = function(mainState, spawnSide) {
     this.healthBarEmpty = game.add.sprite(15, game.height - 39, 'healthbar', 1);
     this.healthBarFull = game.add.sprite(15, game.height - 39, 'healthbar', 0);
     this.updateHealthbarCrop();
-    this.heroText = game.add.bitmapText(15, game.height - 120, 'font', 'Our Hero', 24);
+    this.heroText = game.add.bitmapText(20, game.height - 120, 'font', 'Our Hero', 22);
 }
 
 Hero.prototype = Object.create(Phaser.Sprite.prototype);
 Hero.prototype.constructor = Hero;
 Hero.prototype.constants = { };
-Hero.prototype.constants.speed = 150;
+Hero.prototype.constants.speed = 200;
 Hero.prototype.constants.maxHealth = 50;
 Hero.prototype.constants.invulnTime = 50;
 Hero.prototype.constants.healthPotionHealAmount = 10;
@@ -84,16 +93,20 @@ Hero.prototype.handlePhysics = function() {
 Hero.prototype.handleInput = function() {
     if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || game.input.keyboard.isDown(Phaser.Keyboard.A)) {
         this.body.velocity.x = -this.constants.speed;
+        this.facing = 'left';
     } else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || game.input.keyboard.isDown(Phaser.Keyboard.D)) {
         this.body.velocity.x = this.constants.speed;
+        this.facing = 'right';
     } else {
         this.body.velocity.x = 0;
     }
 
     if(game.input.keyboard.isDown(Phaser.Keyboard.UP) || game.input.keyboard.isDown(Phaser.Keyboard.W)) {
         this.body.velocity.y = -this.constants.speed;
+        this.facing = 'up';
     } else if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN) || game.input.keyboard.isDown(Phaser.Keyboard.S)) {
         this.body.velocity.y = this.constants.speed;
+        this.facing = 'down';
     } else {
         this.body.velocity.y = 0;
     }
@@ -104,7 +117,7 @@ Hero.prototype.handleInput = function() {
         this.body.velocity.x = this.constants.speed*Math.sin(45) * (this.body.velocity.x < 0 ? -1 : 1);
     }
 
-    if(!this.slashEffect.exists){
+    if(this.slashEffect.exists){
         var pointerDx = this.x - game.input.mousePointer.x;
         var pointerDy = this.y - game.input.mousePointer.y;
 
@@ -120,6 +133,32 @@ Hero.prototype.handleInput = function() {
             } else{
                 this.facing = 'up';
             }
+        }
+    }
+
+    if(this.facing === 'up'){
+        if(this.body.velocity.y === 0){
+            this.animations.play('stand-face-up');
+        }else{
+            this.animations.play('walk-face-up');
+        }
+    }else if(this.facing === 'down'){
+        if(this.body.velocity.y === 0){
+            this.animations.play('stand-face-down');
+        }else{
+            this.animations.play('walk-face-down');
+        }
+    }else if(this.facing === 'left'){
+        if(this.body.velocity.x === 0){
+            this.animations.play('stand-face-left');
+        }else{
+            this.animations.play('walk-face-left');
+        }
+    }else if(this.facing === 'right'){
+        if(this.body.velocity.x === 0){
+            this.animations.play('stand-face-right');
+        }else{
+            this.animations.play('walk-face-right');
         }
     }
 }

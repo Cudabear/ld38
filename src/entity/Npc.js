@@ -1,9 +1,10 @@
-Npc = function(mainState, hero, x, y, id, important) {
+Npc = function(mainState, hero, x, y, id, key) {
     this.hero = hero;
     this.mainState = mainState;
     this.id = id;
-
-    Phaser.Sprite.call(this, game, x, y, 'TestEnemy');
+    this.key = key || 'TestEnemy';
+    console.log(this.key, key);
+    Phaser.Sprite.call(this, game, x, y, this.key);
     game.add.existing(this);
     this.anchor.setTo(0.5);
 

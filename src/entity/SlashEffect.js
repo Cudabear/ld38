@@ -1,7 +1,7 @@
 SlashEffect = function(owner){
     Phaser.Sprite.call(this, game, owner.x, owner.y, 'slash');
     game.add.existing(this);
-    this.slashAnim = this.animations.add('slash', null, 10);
+    this.slashAnim = this.animations.add('slash', null, 20);
     this.slashAnim.onComplete.add(this.onSlashComplete, this);
     this.anchor.setTo(0.5);
     game.physics.arcade.enable(this);

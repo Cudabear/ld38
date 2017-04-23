@@ -47,9 +47,24 @@ MainState.prototype = {
         Config.plugins.AStar.setAStarMap(this.map, 'Collision', 'TileSet');
         this.mapBackground = this.map.createLayer('Background');
         this.mapForeground = this.map.createLayer('Foreground');
+        this.mapDetail = this.map.createLayer('Detail');
 
         this.acceptingNewDialog = true;
         this.isDialog = false;
+
+        this.coins = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
+        if(UserData.levelData[this.tilemapKey]){
+            UserData.levelData[this.tilemapKey].coins.forEach(function(coin){
+                this.coins.create(coin.x, coin.y, 'coin');
+            }, this);
+        }
+
+        this.potions = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
+        if(UserData.levelData[this.tilemapKey]){
+            UserData.levelData[this.tilemapKey].potions.forEach(function(potion){
+                this.potions.create(potion.x, potion.y, 'healthpotion');
+            }, this);
+        }
 
         this.hero = new Hero(this, this.spawnSide);
         if(UserData.heroData){
@@ -81,29 +96,16 @@ MainState.prototype = {
 
         this.npcs = game.add.group();
         this.map.objects.Npcs.forEach(function(npcObject){
-            this.npcs.add(new Npc(this, this.hero, npcObject.x, npcObject.y, npcObject.properties.id));
+            this.npcs.add(new Npc(this, this.hero, npcObject.x, npcObject.y, npcObject.properties.id, npcObject.properties.key));
             this.acceptingNewDialog = true;
         }, this);
-
-        this.coins = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
-        if(UserData.levelData[this.tilemapKey]){
-            UserData.levelData[this.tilemapKey].coins.forEach(function(coin){
-                this.coins.create(coin.x, coin.y, 'coin');
-            }, this);
-        }
-
-        this.potions = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
-        if(UserData.levelData[this.tilemapKey]){
-            UserData.levelData[this.tilemapKey].potions.forEach(function(potion){
-                this.potions.create(potion.x, potion.y, 'healthpotion');
-            }, this);
-        }
 
 
         this.doors = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
         this.map.createFromObjects('Doors', 'door', 'arrow', 0, true, false, this.doors, Phaser.Sprite, false);
         this.doors.forEach(function(door){
             door.body.immovable = true;
+            door.alpha = 0;
         }, this);
 
         this.triggers = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
@@ -121,12 +123,11 @@ MainState.prototype = {
 
         this.triggers.forEach(function(trigger){
             trigger.body.immovable = true;
+            trigger.alpha = 0;
         }, this);
 
-        this.mapDetail = this.map.createLayer('Detail');
-
         this.coinCount = UserData.coinCount === undefined ? 0 : UserData.coinCount;
-        this.coinCounter = game.add.bitmapText(15, game.height - 80, 'font', '$'+this.coinCount.toFixed(2), 32);
+        this.coinCounter = game.add.bitmapText(20, game.height - 80, 'font', '$'+this.coinCount.toFixed(2), 32);
  
         this.choiceButton1 = game.add.image(game.world.centerX - 180, game.height - 119, 'choicebutton');
         this.choiceButton1.inputEnabled = true;
@@ -166,15 +167,17 @@ MainState.prototype = {
     },
 
     handleInput: function() {
-
+        if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 5)) {
+            if(this.isDialog){
+                this.advanceDialog();
+            } else {
+                this.acceptingNewDialog = true;
+            }
+        }
     },
 
     handleClick: function() {
-        if(this.isDialog){
-            this.advanceDialog();
-        } else {
-            this.acceptingNewDialog = true;
-        }
+
     },
 
     handlePhysics: function() {
