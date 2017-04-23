@@ -8,10 +8,15 @@ Enemy = function(type, x, y, mainState, target, enemies, map, collisionMap, dial
     this.dialog = dialog;
     this.mainState = mainState;
     if(this.mobType === 'melee') {
-        Phaser.Sprite.call(this, game, x, y, 'TestEnemy');
+        Phaser.Sprite.call(this, game, x, y, 'slime');
         this.attackDistance = this.constants.attackDistanceMelee;
         this.attackWindupTime = this.constants.attackWindupTimeMelee;
         this.attackCooldownTime = this.constants.cooldownTimeMelee;
+
+        this.animations.add('bounce-up', [0,1], 8, true);
+        this.animations.add('bounce-down', [2,3], 8, true);
+        this.animations.add('bounce-left', [4,5], 8, true);
+        this.animations.add('bounce-right', [6,7], 8, true);
 
         this.slashEffect = new SlashEffect(this);
     } else if(this.mobType === 'ranged'){
@@ -141,6 +146,22 @@ Enemy.prototype.update = function() {
     } else if(!this.disableAI){
         this.body.velocity.setTo(0);
     }
+
+    if(this.mobType === 'melee'){
+        if(this.body.velocity.x < -1){
+            this.animations.play('bounce-left');
+            console.log('facing left');
+        }else if(this.body.velocity.x > 1){
+            this.animations.play('bounce-right');
+            console.log('facing right');
+        }else if(this.body.velocity.y < -1){
+            this.animations.play('bounce-up');
+            console.log('facing up');
+        }else if(this.body.velocity.y > 1){
+            this.animations.play('bounce-down');
+            console.log('facing down');
+        }
+    }
 }
 
 Enemy.prototype.calculatePath = function() {
@@ -197,23 +218,6 @@ Enemy.prototype.attemptAttack = function(sightBlockingTiles) {
         this.tint = 0x000000;
         
         this.weaponTarget.set(this.target.x, this.target.y);
-
-        var dxHero = this.x - this.target.x;
-        var dyHero = this.y - this.target.y;
-
-        if(Math.abs(dxHero) > Math.abs(dyHero)){
-            if(dxHero < 0){
-                this.facing = 'right';
-            }else {
-                this.facing = 'left';
-            }
-        } else {
-            if(dyHero < 0){
-                this.facing = 'down';
-            } else {
-                this.facing = 'up';
-            }
-        }
     } else if(this.attackWindupCounter > 0) {
         this.attackWindupCounter--;
 

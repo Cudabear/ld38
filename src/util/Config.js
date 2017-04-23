@@ -27,6 +27,7 @@ Config = {
         {key: "slash", imagePath: "res/img/sprites/slash.png", jsonPath: "res/img/sprites/slashAnim.json"},
         {key: "pointerArrow", imagePath: "res/img/sprites/pointerArrow.png", jsonPath: "res/img/sprites/pointerArrow.json"},
         {key: "hero", imagePath: "res/img/sprites/hero-set.png", jsonPath: "res/img/sprites/hero-set.json"},
+        {key: "slime", imagePath: "res/img/sprites/slime.png", jsonPath: "res/img/sprites/slime.json"}
     ],
     //tilemaps are assumed to be Tiled JSON.
     tileMaps: [
