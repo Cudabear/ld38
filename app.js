@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", function(event){
 	game.state.add('initial', new MainState('Town', 'south'));
 	game.state.add('town-revisit', new MainState('Town', {x: 830, y: 180}));
 	game.state.add('room1', new MainState('Room1', 'south'));
+	game.state.add('room2', new MainState('Room2', 'south'));
+	game.state.add('room3', new MainState('Room3', 'south'));
 
     game.state.start('BootupState');
 });

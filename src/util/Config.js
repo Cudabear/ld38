@@ -14,7 +14,7 @@ Config = {
     ],
     spritesheets: [
         //{key: "SpriteKey", imagePath: "path/to/image", frameWidth: frameWidth, frameHeight: frameHeight, frameMax: frameMax, margin: margin, spacing: spacing}
-        {key: "healthbar", imagePath: "res/img/sprites/healthbar.png", frameWidth: 28, frameHeight: 8}
+        {key: "healthbar", imagePath: "res/img/sprites/health-bar.png", frameWidth: 111, frameHeight: 32}
     ],
     animSprites: [
         //{key: "SpriteKey", imagePath: "path/to/image", jsonPath: "path/to/json"}
@@ -27,7 +27,9 @@ Config = {
     tileMaps: [
         //{key: "MapKey", jsonPath: "path/to/json"}
         {key: "Town", jsonPath: "res/lvl/town.json"},
-        {key: "Room1", jsonPath: "res/lvl/room1.json"}
+        {key: "Room1", jsonPath: "res/lvl/room1.json"},
+        {key: "Room2", jsonPath: "res/lvl/room2.json"},
+        {key: "Room3", jsonPath: "res/lvl/room3.json"}
     ],
     fonts: [
         //{key: "FontKey", imagePath: "path/to/image", xmlPath: "path/to/XML"}

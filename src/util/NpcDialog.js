@@ -13,6 +13,23 @@ NpcDialog = {
 	},
 	'room1': {
 		dialog: ['Oooh boy, another one...',
-			'I\'m getting sick and tired of this job'],
+			'I\'m getting sick and tired of this job']
+	},
+	'room3': {
+		dialog: ['Haha, foolish adventurer!',
+			'In order to progress, you\'ll need to pass my devilish MAZE!',
+			'All the while, I\'ll safely be shooting arrows from way over here!']
+	},
+	'room3-2': {
+		dialog: ['Oh shoot... that was all the arrows I had...',
+			'Too many adventurers coming through at the same time...',
+			'looks like you get off easy, this time!'],
+		callback: function(mainState) {
+			mainState.enemies.getAt(0).disableAI = true;
+			game.physics.arcade.moveToXY(mainState.enemies.getAt(0), 194, 68, 140);
+			game.time.events.add(1000, function() {
+		        mainState.enemies.getAt(0).kill();
+		    }, this);
+		}
 	}
 }

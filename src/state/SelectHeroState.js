@@ -50,7 +50,7 @@ SelectHeroState.prototype = {
 		this.alreadyAttemptedSelection = false;
 
 		game.camera.onFadeComplete.addOnce(function(){
-			game.state.start('test');
+			game.state.start('initial');
 		});
 	},
 

@@ -42,16 +42,17 @@ Hero = function(mainState, spawnSide) {
 
     this.healthBarEmpty = game.add.sprite(50, game.height - 50, 'healthbar', 1);
     this.healthBarFull = game.add.sprite(50, game.height - 50, 'healthbar', 0);
+    this.updateHealthbarCrop();
 }
 
 Hero.prototype = Object.create(Phaser.Sprite.prototype);
 Hero.prototype.constructor = Hero;
 Hero.prototype.constants = { };
 Hero.prototype.constants.speed = 150;
-Hero.prototype.constants.maxHealth = 100;
+Hero.prototype.constants.maxHealth = 50;
 Hero.prototype.constants.invulnTime = 50;
 Hero.prototype.constants.healthPotionHealAmount = 10;
-Hero.prototype.health = Hero.prototype.constants.maxHealth/10;
+Hero.prototype.health = Hero.prototype.constants.maxHealth;
 
 Hero.prototype.update = function() {
     if(this.stunnedCounter === 0){
@@ -169,3 +170,13 @@ Hero.prototype.pickupHealth = function(){
     this.updateHealthbarCrop();
 }
 
+Hero.prototype.getVitals = function() {
+    return {
+        health: this.health
+    }
+}
+
+Hero.prototype.setVitals = function(vitals){
+    this.health = vitals.health;
+    this.updateHealthbarCrop();
+}

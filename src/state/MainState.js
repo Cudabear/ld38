@@ -19,11 +19,12 @@ MainState.prototype = {
 
         game.input.onDown.add(this.handleClick, this);
 
-        this.acceptingNewDialog = true;
+        this.camera.flash(0x000000);
+
         this.dialogArray = [ ];
         this.currentDialogLine = '';
-        this.dialogText = game.add.bitmapText(100, game.height - 100, 'font', '', 32);
-        this.dialogText.maxWidth = game.width - 200;
+        this.dialogText = game.add.bitmapText(250, game.height - 100, 'font', '', 24);
+        this.dialogText.maxWidth = game.width - 400;
 
         this.map = game.add.tilemap(this.tilemapKey);
         this.map.addTilesetImage('TileSet');
@@ -35,13 +36,24 @@ MainState.prototype = {
         this.mapBackground = this.map.createLayer('Background');
         this.mapForeground = this.map.createLayer('Foreground');
 
+        this.acceptingNewDialog = true;
+        this.isDialog = false;
+
         this.hero = new Hero(this, this.spawnSide);
+        if(UserData.heroData){
+            this.hero.setVitals(UserData.heroData);
+        }
 
         this.enemies = game.add.group();
         this.map.objects.Enemies.forEach(function(enemyObject){
-            console.log(enemyObject.properties);
-            this.enemies.add(new Enemy(enemyObject.type, enemyObject.x, enemyObject.y, this, this.hero, this.enemies, this.map, this.mapCollision, enemyObject.properties ? enemyObject.properties.dialog : false));
+            var temp = new Enemy(enemyObject.type, enemyObject.x, enemyObject.y, this, this.hero, this.enemies, this.map, this.mapCollision, enemyObject.properties ? enemyObject.properties.dialog : false);
+            this.enemies.add(temp);
+            
+            if(enemyObject.properties && enemyObject.properties.range){
+                temp.attackDistance = parseInt(enemyObject.properties.range);
+            }
         }, this);
+
 
         this.npcs = game.add.group();
         this.map.objects.Npcs.forEach(function(npcObject){
@@ -59,9 +71,15 @@ MainState.prototype = {
             door.body.immovable = true;
         }, this);
 
+        this.triggers = game.add.group(game.world, null, false, true, Phaser.Physics.ARCADE);
+        if(this.map.objects.Triggers){
+            this.map.createFromObjects('Triggers', 'trigger', 'arrow', 0, true, false, this.triggers, Phaser.sprite, false);
+        }
+
         this.mapDetail = this.map.createLayer('Detail');
 
-        this.coinCounter = game.add.bitmapText(game.width - 300, game.height - 100, 'font', '$0', 32);
+        this.coinCounter = game.add.bitmapText(game.width - 150, game.height - 100, 'font', '$0', 32);
+        this.coinCounter.anchor.setTo(0.5);
         this.coinCount = 0;
     },
 
@@ -108,6 +126,7 @@ MainState.prototype = {
         }, this);
 
         game.physics.arcade.collide(this.hero, this.doors, this.changeRoom, null, this);
+        game.physics.arcade.collide(this.hero, this.triggers, this.triggerTrigger, null, this);
 
         this.enemies.forEach(function(enemy){
             if(this.hero.slashEffect.exists){
@@ -120,7 +139,10 @@ MainState.prototype = {
 
             if(enemy.weapon){
                 game.physics.arcade.collide(enemy.weapon.bullets, this.hero, enemy.onSuccessfulArrow, null, enemy);
-                game.physics.arcade.collide(enemy.weapon.bullets, this.mapCollision, enemy.onFailedArrow, null, enemy);
+
+                if(enemy.attackDistance < 1000){
+                    game.physics.arcade.collide(enemy.weapon.bullets, this.mapCollision, enemy.onFailedArrow, null, enemy);
+                }
             }
 
             //game.physics.arcade.collide(this.hero, enemy);
@@ -156,11 +178,20 @@ MainState.prototype = {
         } else {
             this.dialogText.setText('');
             this.isDialog = false;
+
+            if(this.triggerCallback){
+                this.triggerCallback(this);
+            }
         }
     },
     
     changeRoom(hero, door){
-        game.state.start(door.toMap);
+        game.camera.onFadeComplete.addOnce(function(){
+            game.state.start(door.toMap);
+        });
+        
+        game.camera.fade();
+        UserData.heroData = this.hero.getVitals();
     },
 
     collectCoin(hero, coin){
@@ -174,5 +205,16 @@ MainState.prototype = {
         health.kill();
         Config.sfxObjects.health.play();
         this.hero.pickupHealth();
+    },
+
+    triggerTrigger(hero, trigger){
+        this.acceptingNewDialog = true;
+        this.setDialog(NpcDialog[trigger.dialog].dialog);
+
+        if(NpcDialog[trigger.dialog].callback){
+            this.triggerCallback = NpcDialog[trigger.dialog].callback;
+        }
+
+        trigger.exists = false;
     }
 }

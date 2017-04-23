@@ -52,6 +52,7 @@ Enemy = function(type, x, y, mainState, target, enemies, map, collisionMap, dial
     this.stunnedCounter = 0;
     this.attackWindupCounter = 0;
     this.cooldownCounter = 0;
+    this.disableAI = false;
 
     game.add.existing(this);
     this.anchor.setTo(0.5);
@@ -82,11 +83,11 @@ Enemy.prototype.constants.bombFlySpeed = 150;
 Enemy.prototype.constants.bombExplosionTime = 100;
 Enemy.prototype.constants.bombExplosionRadius = 50;
 Enemy.prototype.constants.bombKnockback = 250;
-Enemy.prototype.maxHealth = 1;
+Enemy.prototype.maxHealth = 5;
 Enemy.prototype.health = Enemy.prototype.maxHealth;
 
 Enemy.prototype.update = function() {
-    if(!this.mainState.isDialog && this.alive){
+    if(!this.mainState.isDialog && this.alive && !this.disableAI){
         if(this.stunnedCounter === 0){
             var sightBlockingTiles = false;
             if(this.mobType === 'ranged'){
@@ -95,12 +96,16 @@ Enemy.prototype.update = function() {
                 sightBlockingTiles = this.collisionMap.getRayCastTiles(this.sightLine, 4, true);
             }
 
-            if((sightBlockingTiles && sightBlockingTiles.length > 0 && this.attackWindupCounter === 0) || (this.attackWindupCounter === 0 && game.physics.arcade.distanceBetween(this, this.target) > this.attackDistance)){
-                this.traversePath();
-                this.tint = 0xFFFFFF;
-            } else {
-                this.attemptAttack(sightBlockingTiles);
-            } 
+            if(this.attackDistance < 1000){
+                if((sightBlockingTiles && sightBlockingTiles.length > 0 && this.attackWindupCounter === 0) || (this.attackWindupCounter === 0 && game.physics.arcade.distanceBetween(this, this.target) > this.attackDistance)){
+                    this.traversePath();
+                    this.tint = 0xFFFFFF;
+                } else {
+                    this.attemptAttack(sightBlockingTiles);
+                } 
+            } else{
+                this.attemptAttack(false);
+            }
 
             if(this.cooldownCounter > 0){
                 this.cooldownCounter--;
@@ -263,7 +268,10 @@ Enemy.prototype.exploadBomb = function() {
     }
 
     this.bomb.exists = false;
-    console.log('boom!');
+    
+
+    game.camera.flash(0xFFFFFF, 150, false, 0.5);
+    game.camera.shake(0.025, 100);
 }
 
 
