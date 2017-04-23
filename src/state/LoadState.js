@@ -53,7 +53,7 @@ LoadState.prototype = {
         }, this);
 
         console.log('kicking off the game');
-        game.state.start('credits');
+        game.state.start('room10');
     },
 
     update: function(){

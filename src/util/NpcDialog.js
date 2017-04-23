@@ -240,8 +240,12 @@ NpcDialog = {
 			'You\'ll have to try again another time.']
 	},
 	'room10-chest': {
-		dialog: ['something witty about treasure being claimed here',
-			'leave through the door to go back to town']
-
+		dialog: ['The treasure chest is ajar and unlocked.  As it opens, you see, unsurprisingly, it\'s mostly empty.  At the bottom, there is a rusted tin cup.',
+			'You take the cup, estimating that it has to be worth at least $5.00.  And you\'re certainly not leaving empty handed.'],
+		callback: function(mainState) {
+			mainState.coinCount += 5;
+			mainState.coinCounter.setText(mainState.coinCount.toFixed(2));
+			Config.sfxObjects.coin.play();
+		}
 	}
 }

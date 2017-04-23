@@ -166,6 +166,8 @@ MainState.prototype = {
         }, this);
         this.choiceLine2 = game.add.bitmapText(game.world.centerX - 175, game.height - 58, 'font', '', 32);
         this.choiceButton2.exists = false;
+
+        this.hero.bringToTop();
     },
 
     update: function() {
@@ -258,12 +260,16 @@ MainState.prototype = {
         }, this);
     },
 
-    setDialog(dialog,choice){
+    setDialog(dialog,choice, callback){
         if(this.acceptingNewDialog) {
             this.acceptingNewDialog = false;
             this.isDialog = true;
             this.choice = choice;
             this.dialogArray = JSON.parse(JSON.stringify(dialog));
+            if(callback){
+                this.npcCallback = callback;
+            }
+
             this.advanceDialog();
         }
     },
@@ -280,6 +286,13 @@ MainState.prototype = {
                 this.isDialog = false;
             } else{
                 this.makeChoice();
+            }
+
+            if(!this.npcCallback){
+
+            }else {
+                this.npcCallback(this);
+                this.npcCallback = null;
             }
 
             if(this.triggerCallback){
