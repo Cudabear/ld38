@@ -10,5 +10,9 @@ NpcDialog = {
 			'You attack in the direction of your mousepointer',
 			'Good luck on your quest!' ],
 		important: true
+	},
+	'room1': {
+		dialog: ['Oooh boy, another one...',
+			'I\'m getting sick and tired of this job'],
 	}
 }

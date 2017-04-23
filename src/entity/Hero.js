@@ -4,18 +4,24 @@ Hero = function(mainState, spawnSide) {
 
     var spawnX = 0;
     var spawnY = 0;
-    if(spawnSide === 'west'){
-        spawnX = game.world.width - 96;
-        spawnY = game.world.centerY;
-    }else if(spawnSide === 'east'){
-        spawnX = 96;
-        spawnY = game.world.centerY;
-    }else if(spawnSide === 'north'){
-        spawnX = game.world.centerX;
-        spawnY = 96;
-    }else if(spawnSide === 'south'){
-        spawnX = game.world.centerX;
-        spawnY = game.world.height - 96;
+
+    if(spawnSide.x && spawnSide.y){
+        spawnX = spawnSide.x;
+        spawnY = spawnSide.y;
+    }else {
+        if(spawnSide === 'west'){
+            spawnX = game.world.width - 96;
+            spawnY = game.world.centerY;
+        }else if(spawnSide === 'east'){
+            spawnX = 96;
+            spawnY = game.world.centerY;
+        }else if(spawnSide === 'north'){
+            spawnX = game.world.centerX;
+            spawnY = 96;
+        }else if(spawnSide === 'south'){
+            spawnX = game.world.centerX;
+            spawnY = game.world.height - 96;
+        }
     }
 
     Phaser.Sprite.call(this, game, spawnX, spawnY, 'TestGuy');
@@ -44,7 +50,8 @@ Hero.prototype.constants = { };
 Hero.prototype.constants.speed = 150;
 Hero.prototype.constants.maxHealth = 100;
 Hero.prototype.constants.invulnTime = 50;
-Hero.prototype.health = Hero.prototype.constants.maxHealth;
+Hero.prototype.constants.healthPotionHealAmount = 10;
+Hero.prototype.health = Hero.prototype.constants.maxHealth/10;
 
 Hero.prototype.update = function() {
     if(this.stunnedCounter === 0){
@@ -155,5 +162,10 @@ Hero.prototype.getExploaded = function(bomb, force){
     this.stunnedCounter = this.constants.invulnTime;
     this.body.velocity.x = force*Math.cos(game.physics.arcade.angleBetween(bomb, this));
     this.body.velocity.y = force*Math.sin(game.physics.arcade.angleBetween(bomb, this));
+}
+
+Hero.prototype.pickupHealth = function(){
+    this.heal(this.constants.healthPotionHealAmount);
+    this.updateHealthbarCrop();
 }
 

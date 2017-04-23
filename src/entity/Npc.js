@@ -1,6 +1,7 @@
 Npc = function(mainState, hero, x, y, id, important) {
     this.hero = hero;
     this.mainState = mainState;
+    this.id = id;
 
     Phaser.Sprite.call(this, game, x, y, 'TestEnemy');
     game.add.existing(this);
@@ -35,5 +36,6 @@ Npc.prototype.handleClick = function() {
     if(game.physics.arcade.distanceBetween(this, this.hero) <= 50){
         this.mainState.setDialog(this.dialog);
         this.arrow.exists = false;
+        NpcDialog[this.id].important = false;
     }
 }

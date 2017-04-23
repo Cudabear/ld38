@@ -55,7 +55,7 @@
                  "name":"door",
                  "properties":
                     {
-                     "toMap":"initial"
+                     "toMap":"town-revisit"
                     },
                  "propertytypes":
                     {
@@ -95,6 +95,14 @@
                  "height":0,
                  "id":6,
                  "name":"enemy",
+                 "properties":
+                    {
+                     "dialog":"room1"
+                    },
+                 "propertytypes":
+                    {
+                     "dialog":"string"
+                    },
                  "rotation":0,
                  "type":"melee",
                  "visible":true,
@@ -132,7 +140,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":9,
+ "nextobjectid":19,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

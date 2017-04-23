@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	game.state.add('BootupState', new BootupState());
 	game.state.add('SelectHero', new SelectHeroState());
 	game.state.add('initial', new MainState('Town', 'south'));
+	game.state.add('town-revisit', new MainState('Town', {x: 830, y: 180}));
 	game.state.add('room1', new MainState('Room1', 'south'));
 
     game.state.start('BootupState');

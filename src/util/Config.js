@@ -7,7 +7,10 @@ Config = {
         {key: "phaser", imagePath: "res/img/wrapper/phaser-logo-small.png"},
         {key: "TileSet", imagePath: "res/img/sprites/tile-set.png"},
         {key: "arrow", imagePath: "res/img/sprites/arrow.png"},
-        {key: "bomb", imagePath: "res/img/sprites/bomb.png"}
+        {key: "bomb", imagePath: "res/img/sprites/bomb.png"},
+        {key: "speechbubble", imagePath: "res/img/sprites/speechbubble.png"},
+        {key: "coin", imagePath: "res/img/sprites/coin.png"},
+        {key: "healthpotion", imagePath: "res/img/sprites/healthpotion.png"}
     ],
     spritesheets: [
         //{key: "SpriteKey", imagePath: "path/to/image", frameWidth: frameWidth, frameHeight: frameHeight, frameMax: frameMax, margin: margin, spacing: spacing}
@@ -33,7 +36,9 @@ Config = {
     sfx: [
         //{key: "SfxKey", filePath: "path/to/audiofile"}
         {key: "hit", filePath: "res/sfx/hit.wav"},
-        {key: "select", filePath: "res/sfx/select.wav"}
+        {key: "select", filePath: "res/sfx/select.wav"},
+        {key: "coin", filePath: "res/sfx/coin.wav"},
+        {key: "health", filePath: "res/sfx/health.wav"}
     ],
     //music loops by default
     music: [
