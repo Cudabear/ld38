@@ -53,7 +53,7 @@ LoadState.prototype = {
         }, this);
 
         console.log('kicking off the game');
-        game.state.start('StartupState');
+        game.state.start('selectHero');
     },
 
     update: function(){
