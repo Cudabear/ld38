@@ -17,6 +17,7 @@ Config = {
         {key: "signpost", imagePath: "res/img/sprites/signpost.png"},
         {key: "treasurechest", imagePath: "res/img/sprites/treasurechest.png"},
         {key: "otherhero", imagePath: "res/img/sprites/other-hero.png"},
+        {key: "splash", imagePath: "res/img/sprites/splash-screen.png"},
     ],
     spritesheets: [
         //{key: "SpriteKey", imagePath: "path/to/image", frameWidth: frameWidth, frameHeight: frameHeight, frameMax: frameMax, margin: margin, spacing: spacing}

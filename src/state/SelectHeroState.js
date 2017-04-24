@@ -8,28 +8,19 @@ SelectHeroState.prototype = {
 
 		Config.musicObjects.upbeatBgm.play('', 0, 1, true);
 
-		this.hero = game.add.sprite(game.world.centerX - 120, game.world.centerY+42, 'hero');
-		this.hero.scale.setTo(3);
+		this.splash = game.add.image(0, 0, 'splash');
+
+		this.hero = game.add.sprite(game.world.centerX - 140, game.world.centerY+62, 'hero');
+		this.hero.scale.setTo(2);
 		this.hero.anchor.setTo(0.5);
 
-		this.otherGuy = game.add.sprite(game.world.centerX + 120, game.world.centerY, 'otherhero');
-		this.otherGuy.scale.setTo(3);
+		this.otherGuy = game.add.sprite(game.world.centerX + 120, game.world.centerY+37, 'otherhero');
+		this.otherGuy.scale.setTo(2);
 		this.otherGuy.anchor.setTo(0.5);
 		this.otherGuyFadeTween = game.add.tween(this.otherGuy);
 		this.otherGuyFadeTween.to({alpha: 0 }, 500);
 
-		this.instructionText = game.add.bitmapText(game.world.centerX, game.height - 100, 'font', 'use left and right arrows to select and A to choose', 32);
-
-		this.instructionText.anchor.setTo(0.5);
-
-		this.titleText = game.add.bitmapText(game.world.centerX, 100, 'font', 'Select your hero!', 32);
-		this.titleText.anchor.setTo(0.5);
-
-		this.statsText = game.add.bitmapText(150, game.world.centerY, 'font', 'Stats:\n\nMight: 3\nSpeed: 5\nSanity: 10\nKnowledge:1', 32);
-		this.statsText.anchor.setTo(0.5);
-		this.statsText.maxWidth = 250;
-
-		this.pointerArrow = game.add.sprite(this.hero.x, this.hero.y - 160, 'pointerArrow');
+		this.pointerArrow = game.add.sprite(this.hero.x, this.hero.y - 120, 'pointerArrow');
 		this.pointerArrow.anchor.setTo(0.5);
 		this.pointerArrow.animations.add('bounce', null, 3, true);
 		this.pointerArrow.animations.play('bounce');
@@ -39,15 +30,13 @@ SelectHeroState.prototype = {
 		this.otherPointer = game.add.sprite(this.otherGuy.x, -64, 'pointerArrow');
 		this.otherPointer.anchor.setTo(0.5);
 		this.otherPointerTween = game.add.tween(this.otherPointer);
-		this.otherPointerTween.to({x: this.otherGuy.x, y: game.world.centerY - 128}, 1000);
+		this.otherPointerTween.to({x: this.otherGuy.x, y: this.hero.y-120}, 1000);
 		this.pointerFadeTween = game.add.tween(this.otherPointer);
 		this.pointerFadeTween.to({alpha: 0}, 500);
 		this.otherPointerTween.onComplete.add(function(){
 			this.otherGuyFadeTween.start();
 			this.pointerFadeTween.start();
 			Config.sfxObjects.hit.play();
-			this.instructionText.setText('use A to continue');
-			this.statsText.setText('Stats:\n\nMight: 3\nSpeed: 5\nSanity: 10\nKnowledge:1');
 		}, this);
 
 		this.alreadyAttemptedSelection = false;
@@ -63,7 +52,6 @@ SelectHeroState.prototype = {
 				Config.sfxObjects.select.play();
 				this.pointerTween.start();
 				this.otherPointerTween.start();
-				this.statsText.setText('Stats:\n\nMight: 900\nSpeed: 455\nSanity: 1000\nKnowledge:980');
 				this.alreadyAttemptedSelection = true;
 			} else {
 				Config.sfxObjects.hit.play();
