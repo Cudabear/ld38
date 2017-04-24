@@ -23,7 +23,8 @@ Config = {
         {key: "healthbar", imagePath: "res/img/sprites/health-bar.png", frameWidth: 111, frameHeight: 32},
         {key: "pot", imagePath: "res/img/sprites/pot.png", frameWidth: 32, frameHeight: 32},
         {key: "bush", imagePath: "res/img/sprites/bush.png", frameWidth: 32, frameHeight: 32},
-        {key: "npcs", imagePath: "res/img/sprites/npcs.png", frameWidth: 32, frameHeight: 64}
+        {key: "npcs", imagePath: "res/img/sprites/npcs.png", frameWidth: 32, frameHeight: 64},
+        {key: "boss-slime", imagePath: "res/img/sprites/boss-slime.png", frameWidth: 64, frameHeight: 64}
     ],
     animSprites: [
         //{key: "SpriteKey", imagePath: "path/to/image", jsonPath: "path/to/json"}

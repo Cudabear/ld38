@@ -95,23 +95,25 @@
          "name":"Npcs",
          "objects":[
                 {
-                 "height":0,
+                 "height":17.0833333333334,
                  "id":164,
                  "name":"npc",
                  "properties":
                     {
-                     "id":"boss-text"
+                     "id":"boss-text",
+                     "key":"boss-slime"
                     },
                  "propertytypes":
                     {
-                     "id":"string"
+                     "id":"string",
+                     "key":"string"
                     },
                  "rotation":0,
                  "type":"npc",
                  "visible":true,
-                 "width":0,
-                 "x":505,
-                 "y":170
+                 "width":24.2500000000001,
+                 "x":501.416666666667,
+                 "y":182.916666666667
                 }],
          "opacity":1,
          "type":"objectgroup",

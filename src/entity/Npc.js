@@ -8,6 +8,10 @@ Npc = function(mainState, hero, x, y, id, key, flipped) {
         this.frame = game.rnd.between(0,2);
     }
 
+    if(this.key === 'boss-slime'){
+        this.animations.add('bobble', [0,1], 2);
+    }
+
     game.add.existing(this);
     this.anchor.setTo(0.5);
 
@@ -36,6 +40,10 @@ Npc.prototype = Object.create(Phaser.Sprite.prototype);
 Npc.prototype.constructor = Npc;
 Npc.prototype.update = function() {
     this.handleInput();
+
+    if(this.key === 'boss-slime'){
+        this.animations.play('bobble');
+    }
 }
 
 Npc.prototype.handleInput = function() {
