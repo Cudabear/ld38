@@ -144,30 +144,26 @@ MainState.prototype = {
         this.choiceButton1 = game.add.image(game.world.centerX - 180, game.height - 119, 'choicebutton');
         this.choiceButton1.inputEnabled = true;
         this.choiceButton1.events.onInputDown.add(function(){
-            this.isDialog = false;
-            this.choice.yesCallback(this);
-            this.choice = null;
-            this.choiceLine1.setText('');
-            this.choiceLine2.setText('');
-            this.choiceButton1.exists = false;
-            this.choiceButton2.exists = false;
+            this.hoveredChoice = 'yes';
+            this.handleYesNoChoice();
         }, this);
         this.choiceButton1.exists = false;
         this.choiceLine1 = game.add.bitmapText(game.world.centerX - 175, game.height - 114, 'font', '', 32);
         this.choiceButton2 = game.add.image(game.world.centerX - 180, game.height - 63, 'choicebutton');
         this.choiceButton2.inputEnabled = true;
         this.choiceButton2.events.onInputDown.add(function(){
-            this.isDialog = false;
-            this.choice.noCallback(this);
-            this.choice = null;
-            this.choiceLine1.setText('');
-            this.choiceLine2.setText('');
-            this.choiceButton1.exists = false;
-            this.choiceButton2.exists = false;
+            this.hoveredChoice = 'no';
+            this.handleYesNoChoice();
         }, this);
         this.choiceLine2 = game.add.bitmapText(game.world.centerX - 175, game.height - 58, 'font', '', 32);
         this.choiceButton2.exists = false;
 
+        this.choiceArrow = game.add.sprite(0, 0, 'pointerArrow');
+        this.choiceArrow.exists = false;
+        this.choiceArrow.rotation = Math.PI*3/2;
+        this.choiceArrow.animations.add('bounce', null, 3, true);
+        this.choiceArrow.animations.play('bounce');
+        this.hoveredChoice = null;
         this.hero.bringToTop();
     },
 
@@ -180,7 +176,35 @@ MainState.prototype = {
 
     },
 
+    handleYesNoChoice: function() {
+        this.isDialog = false;
+        this.choiceLine1.setText('');
+        this.choiceLine2.setText('');
+        this.choiceButton1.exists = false;
+        this.choiceButton2.exists = false;
+        this.choiceArrow.exists = false;
+
+        console.log(this.hoveredChoice);
+        if(this.hoveredChoice === 'yes'){
+            this.choice.yesCallback(this);
+        }else{
+            this.choice.noCallback(this);
+        }
+        this.choice = null;
+        this.hoveredChoice = null;
+    },
+
     handleInput: function() {
+        if(this.hoveredChoice){
+            if(game.input.keyboard.downDuration(Phaser.Keyboard.S, 5) || game.input.keyboard.downDuration(Phaser.Keyboard.DOWN, 5)) {
+                this.hoveredChoice = 'no';
+                this.choiceArrow.y = this.choiceLine2.y + 40;
+            }else if(game.input.keyboard.downDuration(Phaser.Keyboard.W, 5) || game.input.keyboard.downDuration(Phaser.Keyboard.UP, 5)) {
+                this.hoveredChoice = 'yes';
+                this.choiceArrow.y = this.choiceLine1.y + 40;
+            }
+        }
+
         if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 5)) {
             if(this.isDialog){
                 this.advanceDialog();
@@ -277,7 +301,6 @@ MainState.prototype = {
 
     advanceDialog(dialog){
         this.currentDialogLine = this.dialogArray.shift();
-
         if(this.currentDialogLine) {
             this.dialogText.setText(this.currentDialogLine);
         } else {
@@ -285,7 +308,9 @@ MainState.prototype = {
 
             if(!this.choice){
                 this.isDialog = false;
-            } else{
+            }else if(this.hoveredChoice){
+                this.handleYesNoChoice();
+            }else{
                 this.makeChoice();
             }
 
@@ -307,6 +332,9 @@ MainState.prototype = {
         this.choiceLine2.setText(this.choice.no);
         this.choiceButton1.exists = true;
         this.choiceButton2.exists = true;
+        this.choiceArrow.exists = true;
+        this.hoveredChoice = 'yes';
+        this.choiceArrow.position.setTo(this.choiceLine1.x - 70, this.choiceLine1.y + 40);
     },
     
     changeRoom(hero, door){

@@ -3,11 +3,37 @@ NpcDialog = {
 		dialog: ['hi', 'my name is error']
 	},
 	'instructor': {
-		dialog: ['here is some informative dialog to help you get started on your quest.  You can press spacebar to talk to npcs and advance dialog.',
-			'you can move with the WSAD keys, but you probably already knew that.  you can also move with the arrow keys, if you\'re weird like that.',
-			'Use the spacebar to attack in the direction you\'re facing.',
-			'Good luck on your quest!' ],
+		dialog: ['Hey, welcome to the world!  Better late than never, I suppose.  Maybe there\'s still some loot in that dungeon.  Maybe even some slimes to fight.',
+			'You can move with the WASD keys, but you probably already knew that.  you can also move with the arrow keys, if you\'re weird like that.',
+			'Use the spacebar to attack in the direction you\'re facing.  Watch out for enemy attacks!  They flash when they\'re about to attack you.',
+			'When presented with a choice, you can use WASD or the arrow keys to select the choice and spacebar to choose.',
+			'did you get all that?' ],
+		choice: {
+			yes: 'Yes!',
+			yesCallback: function(mainState){
+				mainState.triggerTrigger(mainState.hero, {dialog: 'instructor-yes'});
+			},
+			no: 'No!',
+			noCallback: function(mainState){
+				mainState.acceptingNewDialog = true;
+				mainState.setDialog(NpcDialog['instructor-no'].dialog, null, NpcDialog['instructor-no'].choice);
+			}
+		},
 		important: true
+	},
+	'instructor-yes': {
+		dialog: ['Great!  Good luck on your quest!']
+	},
+	'instructor-no': {
+		dialog: ['Hey, weren\'t you listening?',
+			'You can move with the WASD keys, but you probably already knew that.  you can also move with the arrow keys, if you\'re weird like that.',
+			'Use the spacebar to attack in the direction you\'re facing.  Watch out for enemy attacks!  They flash when they\'re about to attack you.',
+			'When presented with a choice, you can use WASD or the arrow keys to select the choice and spacebar to choose.',
+			'Maybe this time you got it?' ],
+		callback: function(mainState){
+			console.log('hi');
+			phaser.physics.arcade.moveToXY(mainState.npcs.getAt(0), -500, -500);
+		}
 	},
 	'town-signpost': {
 		dialog: ['Most treasure found in cave (in one journey):', '1. $300,000 Superbro \n2. $275,000 Hanzo \n3. $224,000 Sarah',
