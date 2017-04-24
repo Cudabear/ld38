@@ -36,6 +36,7 @@ SelectHeroState.prototype = {
 		this.otherPointerTween.onComplete.add(function(){
 			this.otherGuyFadeTween.start();
 			this.pointerFadeTween.start();
+			game.camera.shake(0.025, 200);
 			Config.sfxObjects.hit.play();
 		}, this);
 
