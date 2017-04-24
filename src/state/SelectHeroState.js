@@ -47,7 +47,7 @@ SelectHeroState.prototype = {
 	},
 
 	update: function() {
-		if(game.input.keyboard.downDuration(Phaser.Keyboard.RIGHT, 5)) {
+		if(game.input.keyboard.downDuration(Phaser.Keyboard.RIGHT, 5) || game.input.keyboard.downDuration(Phaser.Keyboard.D, 5) ) {
 			if(!this.alreadyAttemptedSelection){
 				Config.sfxObjects.select.play();
 				this.pointerTween.start();
@@ -58,11 +58,11 @@ SelectHeroState.prototype = {
 			}
 		}
 
-		if(game.input.keyboard.downDuration(Phaser.Keyboard.LEFT, 5)) {
+		if(game.input.keyboard.downDuration(Phaser.Keyboard.LEFT, 5) || game.input.keyboard.downDuration(Phaser.Keyboard.A, 5)) {
 			Config.sfxObjects.hit.play();
 		}
 
-		if(game.input.keyboard.downDuration(Phaser.Keyboard.A, 5)) {
+		if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 5)) {
 			Config.sfxObjects.select.play();
 			game.camera.fade();
 		}
